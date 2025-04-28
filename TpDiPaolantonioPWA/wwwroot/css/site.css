@@ -20,3 +20,14 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.logo_layout{
+
+    max-width: 300px;
+    height: auto;
+}
+
+.fuente_Cabecera{
+
+   height: 120px;
+}
