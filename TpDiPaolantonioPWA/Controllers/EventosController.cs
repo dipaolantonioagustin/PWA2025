@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using TpDiPaolantonioPWA.Models;
 
 namespace TpDiPaolantonioPWA.Controllers
 {
@@ -6,7 +7,9 @@ namespace TpDiPaolantonioPWA.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            Evento evento = new Evento();
+            List<Evento> listadoEventos = evento.ListarEventos();
+            return View(listadoEventos);
         }
     }
 }
