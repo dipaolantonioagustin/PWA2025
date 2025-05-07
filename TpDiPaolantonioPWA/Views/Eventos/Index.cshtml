@@ -1,7 +1,7 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
-
+@using System.Globalization
 @model List<Evento> 
 
 @{
@@ -12,20 +12,79 @@
     <div class="container-fluid">
         <img src="~/img/Eventos/encabezado muestra permanente.jpg" style="width:100%;" alt="Alternate Text" />
     </div>
+
+
+    <div class="container-fluid bg-body rounded-2 px-0 py-2 my-2">
+
+        <form asp-controller="Eventos" asp-action="Filtrar" method="post" class="justify-content-between">
+
+            <input class="rounded-2 col-12 col-lg-2 m-1" type="text" name="name" placeholder="Nombre Muestra" />
+
+            <select name="tipo" class="rounded-1 col-12 col-lg-2 m-1">
+                <option></option>
+                <option>Muestra</option>
+                <option>Recital</option>
+                <option>Conferencia</option>
+            </select>
+
+            <select name="foro" class="rounded-2 col-12 col-lg-2 m-1">
+                <option></option>
+                <option>Nacional</option>
+                <option>Internacional</option>
+
+            </select>
+
+            <select name="Foro" class="rounded-2 col-12 col-lg-2 m-1">
+                <option></option>
+                <option>Nacional</option>
+                <option>Internacional</option>
+
+            </select>
+
+
+            <select name="Mes" class="form-select col-12 col-lg-2 m-1">
+                <option value="">-- Mes --</option>
+                @for (int m = 1; m <= 12; m++)
+                {
+                    <option value="@m">@CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(m)</option>
+                }
+            </select>
+
+            <select name="Anio" class="form-select col-12 col-lg-2 m-1">
+                <option value="">-- Año --</option>
+                @for (int y = 2020; y <= DateTime.Now.Year; y++)
+                {
+                    <option value="@y">@y</option>
+                }
+            </select>
+
+
+            <button type="submit" class="rounded-2 m-1">Buscar</button>
+
+        </form>
+
+    </div>
+
+  
+</div>
+
+
+
     <div  class="container my-1 my-md-5 justify-content-between">
      
-      <div class="row d-flex justify-content-between">
+     
+    <div class="row d-flex justify-content-between">
 
             @foreach (var e in Model)
             {
-                <div class="card col-12 col-md-3 rounded-2 my-3 my-md-0" style="border-radius: 15px 0 0 15px; box-shadow: 0 5px 5px 0 gray">
+                <div class="card col-12 col-md-3 rounded-2 my-3 my-md-3 mx-md-1" style="border-radius: 15px 0 0 15px; box-shadow: 0 5px 5px 0 gray">
                     <h3 class="card-title fw-bold">@e.name</h3>
                     <h4 class="card-title fw-bold">@e.autor</h4>
 
                     <img src="@e.portada" class="card-img-top" alt="Alternate Text" />
 
                     <div class="card-body">
-                        <h5 class="card-title fw-bold">@e.pais</h5>
+                        <h5 class="card-title fw-bold">@e.foro</h5>
                         <p class="card-text">@e.description</p>
                         <p class="text-muted">@e.fechaInicio</p>
                         <p class="text-muted">@e.fechaFin</p>
