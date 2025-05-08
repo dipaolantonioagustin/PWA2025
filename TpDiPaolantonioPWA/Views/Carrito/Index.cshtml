@@ -2,7 +2,7 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 
-@model List<Ticket>
+@model Carrito
 
 @{
 }
@@ -13,49 +13,65 @@
     </div>
 
 
-   <div class="container-fluid">
-        <h2>Carrito Compras</h2>
-        <table class="table table-bordered table-hover text-center align-middle">
-            <thead class="table-light">
-                <tr>
-                    <th>Evento</th>
-                    <th>Fecha</th>
-                    <th>Precio Ticket</th>
-                    <th>Cantidad</th>
-                    <th>Total Entradas</th>
-                    <th>Botones</th>
+   <div class="container-fluid mt-1 mt-lg-3">
+        <h2 class="fw-bold">Carrito Compras</h2>
+
+        <div class="row">
+
+            <div class="col-12 mt-lg-2 mt-1">
+                <table class="table table-striped table-hover text-center align-middle">
+                    <thead class="table-warning ">
+                        <tr>
+                            <th>Evento</th>
+                            <th>Fecha</th>
+                            <th>Precio Ticket</th>
+                            <th>Cantidad</th>
+                            <th>Total Entradas</th>
+                            <th>Botones</th>
 
 
-                </tr>
+                        </tr>
 
-            <tbody>
-                    @foreach (var ticket in Model)
-                    {
-                    <tr>
-                        <td>@ticket.evento_ticket.name</td>
-                        <td>@ticket.fecha.ToString("dd/MM/yyyy")</td>
-                        <td>$@ticket.evento_ticket.valor</td>
-                        <form asp-controller="CarritoController" action="ActualizarCalculo" method="post">
-                            <div class="input-group input-group-sm" style="width: 120px;">
-                                <button type="submit" class="btn btn-outline-secondary" onclick="cambiarCantidad(this, -1)">−</button>
-                                <input type="number" name="Cantidad" value="2" min="1" class="form-control text-center" />
-                                <button type="button" class="btn btn-outline-secondary" onclick="cambiarCantidad(this, 1)">+</button>
-                            </div>
+                    <tbody>
+                            @foreach (var ticket in Model.tickets)
+                            {
+                            <tr>
+                                <td>@ticket.evento_ticket.name</td>
+                                <td>@ticket.fecha.ToString("dd/MM/yyyy")</td>
+                                <td>@ticket.evento_ticket.valor</td>
+                                <td>@ticket.cantidad</td>
+                                <td>@ticket.TotalEntradas()</td>
+                                <td>
+                                    <button type="button" class="btn btn-danger">Eliminar</button>
+
+                                </td>
+                            </tr>
+                            }
+
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>Total:</td>
+                            <td>@Model.sumarEntradas()</td>
+                            <td></td>
+                    </tbody>
 
 
-                        </form>
-                        <td>@ticket.cantidad</td>
-                        <td>@ticket.TotalEntradas()</td>
-                        <td>
-                           
-                        </td>
-                    </tr>
-                    }
-            </tbody>
+                </table>
 
+
+            </div>
+            <div class="col-12 d-flex justify-content-end">
+
+                <btn type="button" class="btn btn-warning">Continuar</btn>
+
+            </div>
+
+
+
+        </div>
+        
        
-        </table>
-
 
 
 

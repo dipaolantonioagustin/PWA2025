@@ -16,6 +16,12 @@
         }
 
 
+        public Ticket()
+        {
+            evento_ticket = new Evento();
+
+        }
+
 
     }
 }

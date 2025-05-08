@@ -6,12 +6,37 @@
 
         public List<Ticket> tickets { get; set; }
 
+        public Usuario usuario { get; set; } 
         public float impuestos { get; set; }
         public float gastos_aderidos { get; set; }
         public float descuentos { get; set; }
 
-        public float total {  get; set; }   
+        public float total {  get; set; }
 
+        public float porcentualGastoOperativo{ get; set; }
+
+        public Carrito() { usuario = new Usuario(); porcentualGastoOperativo = (float) 0.025; }
+
+        public void CalcularGastosOperativos()
+        {
+            this.gastos_aderidos =  this.sumarEntradas() * porcentualGastoOperativo;
+        }
+       
+        
+        public void CalcularDescuento()
+        {
+          
+                      
+            if (this.usuario.socio == true) {  this.descuentos = this.sumarEntradas() * (float)0.10;}
+            else
+            {
+                this.descuentos = 0;
+            }
+
+
+
+            
+        }
         public void agregarTicket(Evento eventos, int cantidades)
         {
             Ticket verificador = tickets.FirstOrDefault(x => x.evento_ticket.id == eventos.id);
@@ -66,7 +91,17 @@
             }
 
         }
+        public float sumarEntradas()
+        {
+            float sumatoria = 0;
 
+            foreach (var item in tickets)
+            {
+                sumatoria += item.cantidad * item.evento_ticket.valor;
+            }
+
+            return sumatoria;
+        }
 
         public float CalculadorTotal()
         {
@@ -80,28 +115,25 @@
 
                 float subTotal = cant * valor;
 
-                if(this.descuentos != 0)
-                {
-                    subTotal = subTotal - subTotal * (this.descuentos / 100);
-                }
-
-
-                if (this.impuestos != 0)
-                {
-                    subTotal = subTotal + subTotal * (this.impuestos / 100);
-                }
-
-
-                if (this.gastos_aderidos != 0)
-                {
-                    subTotal = this.gastos_aderidos;
-                }
-
+                                
                 total += subTotal;
 
             }
 
-           
+            
+            this.CalcularDescuento();
+
+            if (this.descuentos != 0)
+            {
+                total = total - this.descuentos;
+            }
+
+            this.CalcularGastosOperativos();
+
+            if (this.gastos_aderidos != 0)
+            {
+                total = total +  this.gastos_aderidos;
+            }
 
             return total;
         }
