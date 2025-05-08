@@ -18,6 +18,11 @@
         public string tipo { get; set; }
 
 
+        public float valor {  get; set; }
+
+        public int capacidad {  get; set; }
+
+
         public List<Evento> ListarEventos()
         {
             List<Evento> listaEventos = new List<Evento>();
@@ -34,6 +39,9 @@
             e1.fechaFin = new DateTime(2025, 7, 10);
             e1.portada = "/img/Eventos/Kuitca.png";
             e1.tipo = "Recital";
+            e1.valor = 12500;
+            
+
 
 
             listaEventos.Add(e1);
@@ -50,6 +58,7 @@
             e2.fechaFin = new DateTime(2025, 10, 10);
             e2.portada = "/img/Eventos/CinePortugues.png";
             e2.tipo = "Muestra";
+            e2.valor = 12500;
 
             listaEventos.Add(e2);
 
@@ -64,6 +73,7 @@
             e3.fechaFin = new DateTime(2025, 7, 10);
             e3.portada = "/img/Eventos/Kuitca.png";
             e3.tipo = "Conferencia";
+            e3.valor = 15500;
 
             listaEventos.Add(e3);
 
@@ -78,6 +88,7 @@
             e4.fechaFin = new DateTime(2025, 7, 10);
             e4.portada = "/img/Eventos/Kuitca.png";
             e4.tipo = "Muestra";
+            e4.valor = 20000;
 
             listaEventos.Add(e4);
 
@@ -92,6 +103,7 @@
             e5.fechaFin = new DateTime(2025, 7, 10);
             e5.portada = "/img/Eventos/Kuitca.png";
             e5.tipo = "Conferencia";
+            e5.valor = 10000;
 
             listaEventos.Add(e5);
 

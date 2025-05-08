@@ -1,0 +1,70 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model List<Ticket>
+
+@{
+}
+
+<div class="container-fluid mb-5 pb-5 ">
+    <div class="container-fluid py-0 my-0">
+        <img src="~/img/Eventos/encabezado muestra permanente.jpg" style="width:100%;" alt="Alternate Text" />
+    </div>
+
+
+   <div class="container-fluid">
+        <h2>Carrito Compras</h2>
+        <table class="table table-bordered table-hover text-center align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th>Evento</th>
+                    <th>Fecha</th>
+                    <th>Precio Ticket</th>
+                    <th>Cantidad</th>
+                    <th>Total Entradas</th>
+                    <th>Botones</th>
+
+
+                </tr>
+
+            <tbody>
+                    @foreach (var ticket in Model)
+                    {
+                    <tr>
+                        <td>@ticket.evento_ticket.name</td>
+                        <td>@ticket.fecha.ToString("dd/MM/yyyy")</td>
+                        <td>$@ticket.evento_ticket.valor</td>
+                        <form asp-controller="CarritoController" action="ActualizarCalculo" method="post">
+                            <div class="input-group input-group-sm" style="width: 120px;">
+                                <button type="submit" class="btn btn-outline-secondary" onclick="cambiarCantidad(this, -1)">−</button>
+                                <input type="number" name="Cantidad" value="2" min="1" class="form-control text-center" />
+                                <button type="button" class="btn btn-outline-secondary" onclick="cambiarCantidad(this, 1)">+</button>
+                            </div>
+
+
+                        </form>
+                        <td>@ticket.cantidad</td>
+                        <td>@ticket.TotalEntradas()</td>
+                        <td>
+                           
+                        </td>
+                    </tr>
+                    }
+            </tbody>
+
+       
+        </table>
+
+
+
+
+   </div>
+
+       
+
+
+</div>
+
+
+

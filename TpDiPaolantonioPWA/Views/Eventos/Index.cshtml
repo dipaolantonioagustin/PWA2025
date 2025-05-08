@@ -9,57 +9,109 @@
     ViewData["Title"] = "Eventos Page";
 }
 <div class="container-fluid mb-5 pb-5 ">
-    <div class="container-fluid">
+    <div class="container-fluid py-0 my-0">
         <img src="~/img/Eventos/encabezado muestra permanente.jpg" style="width:100%;" alt="Alternate Text" />
     </div>
 
 
-    <div class="container-fluid bg-body rounded-2 px-0 py-2 my-2">
+    <div class="container-fluid bg-body rounded-2 px-2 py-2 my-2">
 
         <form asp-controller="Eventos" asp-action="Filtrar" method="post" class="justify-content-between">
+          
+            <div class="row g-3">
+               
+                <div class="rounded-1 col-12 col-lg-2 ">
 
-            <input class="rounded-2 col-12 col-lg-2 m-1" type="text" name="name" placeholder="Nombre Muestra" />
+                    <label class="form-label" style="color:aliceblue;">Nombre Muestra</label>
 
-            <select name="tipo" class="rounded-1 col-12 col-lg-2 m-1">
-                <option></option>
-                <option>Muestra</option>
-                <option>Recital</option>
-                <option>Conferencia</option>
-            </select>
+                    <input class=" form-control" type="text" name="name" placeholder="Nombre Muestra" />
 
-            <select name="foro" class="rounded-2 col-12 col-lg-2 m-1">
-                <option></option>
-                <option>Nacional</option>
-                <option>Internacional</option>
+                </div>
 
-            </select>
+                <div class="rounded-1 col-12 col-lg-2 ">
 
-            <select name="Foro" class="rounded-2 col-12 col-lg-2 m-1">
-                <option></option>
-                <option>Nacional</option>
-                <option>Internacional</option>
+                    <label class="form-label" style="color:aliceblue;">Nombre Autor</label>
 
-            </select>
+                    <input class=" form-control" type="text" name="autor" placeholder="Nombre Autor" />
 
+                </div>
 
-            <select name="Mes" class="form-select col-12 col-lg-2 m-1">
-                <option value="">-- Mes --</option>
-                @for (int m = 1; m <= 12; m++)
-                {
-                    <option value="@m">@CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(m)</option>
-                }
-            </select>
+                <div class="rounded-1 col-12 col-lg-2 ">
 
-            <select name="Anio" class="form-select col-12 col-lg-2 m-1">
-                <option value="">-- Año --</option>
-                @for (int y = 2020; y <= DateTime.Now.Year; y++)
-                {
-                    <option value="@y">@y</option>
-                }
-            </select>
+                    <label class="form-label" style="color:aliceblue;">Categoria</label>
+
+                    <select name="tipo" class="rounded-1 form-select">
+                        <option></option>
+                        <option>Muestra</option>
+                        <option>Recital</option>
+                        <option>Conferencia</option>
+                    </select>
+
+                </div>
+
+                <div class="rounded-1 col-12 col-lg-2 ">
+
+                    <label class="form-label" style="color:aliceblue;">Foro</label>
+                    
+                    <select name="foro" class="rounded-2 form-select">
+                        <option></option>
+                        <option>Nacional</option>
+                        <option>Internacional</option>
+
+                    </select>
 
 
-            <button type="submit" class="rounded-2 m-1">Buscar</button>
+                </div>
+
+                <div class="rounded-1 col-12 col-lg-2 ">
+
+                    <label class="form-label" style="color:aliceblue;">Fecha Inicio</label>
+                  
+                    <select name="Mes" class="form-select rounded-1 ">
+                        <option value="">-- Mes --</option>
+                        @for (int m = 1; m <= 12; m++)
+                        {
+                            <option value="@m">@CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(m)</option>
+                        }
+                    </select>
+
+
+
+                </div>
+
+
+                <div class="rounded-1 col-12 col-lg-2 ">
+
+
+                    <label class="form-label" style="color:aliceblue;">Fecha Fin</label>
+
+                    <select name="Anio" class="form-select col-12 col-lg-2 ">
+                        <option value="">-- Año --</option>
+                        @for (int y = 2020; y <= DateTime.Now.Year; y++)
+                        {
+                            <option value="@y">@y</option>
+                        }
+                    </select>
+
+
+                </div>
+          
+                <div class="col  mb-lg-2 mt-3 mt-1 col d-flex justify-content-end">
+
+                    <button type="submit" class="btn btn-warning rounded-2 ">Buscar</button>
+
+                </div>
+                            
+
+
+               
+
+
+
+
+
+           </div>
+            
 
         </form>
 
