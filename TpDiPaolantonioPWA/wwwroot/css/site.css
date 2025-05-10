@@ -36,3 +36,30 @@ body {
 
 
 }
+
+.fuente_Cabecera_PreView{
+
+    font-size: 1.5em;
+}
+.fuente_tabla_CompraDetalle{
+    font-size: 1.3em;
+}
+
+.ancho_botones_CompraDetalle {
+    width: 100px;
+    align-content: center;
+}
+@media (max-width:768px){
+    .fuente_Cabecera_PreView{
+        font-size: 0.9em;
+    }
+
+    .fuente_tabla_CompraDetalle{
+        font-size: 0.8em;
+    }
+
+    .ancho_botones_CompraDetalle {
+        width: 85px;
+        align-content:center;
+    }
+}
