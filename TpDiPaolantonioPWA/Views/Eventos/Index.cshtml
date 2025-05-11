@@ -2,7 +2,7 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @using System.Globalization
-@model List<Evento> 
+@model IEnumerable<Evento> 
 
 @{
 
@@ -65,7 +65,7 @@
 
                 <div class="rounded-1 col-12 col-lg-2 ">
 
-                    <label class="form-label" style="color:aliceblue;">Fecha Inicio</label>
+                    <label class="form-label" style="color:aliceblue;">Mes</label>
                   
                     <select name="Mes" class="form-select rounded-1 ">
                         <option value="">-- Mes --</option>
@@ -83,7 +83,7 @@
                 <div class="rounded-1 col-12 col-lg-2 ">
 
 
-                    <label class="form-label" style="color:aliceblue;">Fecha Fin</label>
+                    <label class="form-label" style="color:aliceblue;">Año</label>
 
                     <select name="Anio" class="form-select col-12 col-lg-2 ">
                         <option value="">-- Año --</option>

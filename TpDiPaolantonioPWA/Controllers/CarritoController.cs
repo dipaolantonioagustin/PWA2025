@@ -6,6 +6,7 @@ namespace TpDiPaolantonioPWA.Controllers
 {
     public class CarritoController : Controller
     {
+        
         public IActionResult Index()
         {
             Evento evento = new Evento();
@@ -106,5 +107,8 @@ namespace TpDiPaolantonioPWA.Controllers
 
 
         public IActionResult ResultadoCompra() { return View(); }
+
+
+
     }
 }

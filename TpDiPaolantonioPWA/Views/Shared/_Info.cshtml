@@ -1,0 +1,20 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model Info
+<div class="container-fluid p-2">
+
+    <div class="card mb-3">
+        <div class="card-header fw-bold">@Model.nombre</div>
+        <img src="@Model.img" class="card-img-top" alt="Alternate Text" />
+        <div class="card-body mb-2">
+            
+            <p><strong>Descripción:</strong> @Model.descripcion</p>
+            
+        </div>
+    </div>
+
+</div>

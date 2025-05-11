@@ -13,31 +13,38 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid bg-warning fuente_Cabecera ">
-                <a class="navbar-brand m-3 col-5 col-md-3 " asp-area="" asp-controller="Home" asp-action="Index">
+                <a class="navbar-brand m-3" asp-area="" asp-controller="Home" asp-action="Index">
                     
-                    <img src="~/img/Museo_malba_logo.png" class="img-fluid   logo_layout" alt="Alternate Text" />
+                    <img src="~/img/Museo_malba_logo.png" class="logo_layout" alt="Alternate Text" />
                     
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <div class="navbar-collapse collapse bg-warning d-sm-inline-flex justify-content-between navbar-collapseFrente">
                     <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark fw-bold fs-3" href="@Url.Action("Index", "Info", new { info = 1 })">Historia</a>
+                        </li>
+                        <li class="nav-item">
                         <li class="nav-item">
                             <a class="nav-link text-dark fw-bold fs-3"  asp-area="" asp-controller="Eventos" asp-action="Index">Eventos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark fw-bold fs-3"  asp-area="" asp-controller="Eventos" asp-action="Index">Tickets</a>
+                            <a class="nav-link text-dark fw-bold fs-3" asp-area="" asp-controller="Eventos" asp-action="EventosABM">EventosABM</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark fw-bold fs-3" asp-area="" asp-controller="MuestraPermanente" asp-action="Index"> Muestra Permanente</a>
+                            <a class="nav-link text-dark fw-bold fs-3"  asp-area="" asp-controller="Carrito" asp-action="Index" >Tickets</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark fw-bold fs-3" asp-area="" asp-controller="MuestraPermanente" asp-action="Index"> M.Permanente</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark fw-bold fs-3" asp-area="" asp-controller="Contacto" asp-action="Index">Contacto</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark fw-bold fs-3" asp-area="" asp-controller="Carrito" asp-action="Index"> <i class="bi bi-cart-fill"></i></a>
+                            <a class="nav-link text-dark fw-bold fs-3" asp-area="" asp-controller="Carrito" asp-action="DetalleCompra"> <i class="bi bi-cart-fill"></i></a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark fw-bold fs-3" asp-area="" asp-controller="Loguin" asp-action="Index"> <i class="bi bi-person-circle"></i></a>
