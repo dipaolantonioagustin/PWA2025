@@ -49,6 +49,11 @@ body {
     width: 120px;
     align-content: center;
 }
+
+
+.ancho_inputs_Contacto{
+    width: 50%;
+}
 @media (max-width:768px){
     .fuente_Cabecera_PreView{
         font-size: 0.9em;
@@ -61,5 +66,9 @@ body {
     .ancho_botones_CompraDetalle {
         width: 100px;
         align-content:center;
+    }
+
+    .ancho_inputs_Contacto {
+        width: 100%;
     }
 }

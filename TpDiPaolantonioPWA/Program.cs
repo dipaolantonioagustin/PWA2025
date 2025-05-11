@@ -18,6 +18,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Eventos}/{action=EventosABM}/{id?}");
+    pattern: "{controller=Eventos}/{action=Index}/{id?}");
 
 app.Run();

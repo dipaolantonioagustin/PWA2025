@@ -10,7 +10,7 @@
 }
 <div class="container-fluid mb-5 pb-5 ">
     <div class="container-fluid py-0 my-0">
-        <img src="~/img/Eventos/encabezado muestra permanente.jpg" style="width:100%;" alt="Alternate Text" />
+        <img src="~/img/Eventos/programacion.jpg" style="width:100%;" alt="Alternate Text" />
     </div>
 
 
@@ -129,21 +129,24 @@
 
             @foreach (var e in Model)
             {
+           
                 <div class="card col-12 col-md-3 rounded-2 my-3 my-md-3 mx-md-1" style="border-radius: 15px 0 0 15px; box-shadow: 0 5px 5px 0 gray">
-                    <h3 class="card-title fw-bold">@e.name</h3>
-                    <h4 class="card-title fw-bold">@e.autor</h4>
+                <a href="@Url.Action("Detalle","Eventos",new { id = e.id })" class="text-decoration-none text-dark">
+                       
+                        <h3 class="card-title fw-bold">@e.name</h3>
+                        <h4 class="card-title fw-bold">@e.autor</h4>
 
-                    <img src="@e.portada" class="card-img-top" alt="Alternate Text" />
+                        <img src="@e.portada" class="card-img-top" alt="Alternate Text" />
 
-                    <div class="card-body">
-                        <h5 class="card-title fw-bold">@e.foro</h5>
-                        <p class="card-text">@e.description</p>
-                        <p class="text-muted">@e.fechaInicio</p>
-                        <p class="text-muted">@e.fechaFin</p>
-                    </div>
-
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold">@e.foro</h5>
+                            <p class="card-text">@e.description</p>
+                            <p class="text-muted">@e.fechaInicio</p>
+                            <p class="text-muted">@e.fechaFin</p>
+                        </div>
+                     </a>
                 </div>
-
+            
             }
 
 

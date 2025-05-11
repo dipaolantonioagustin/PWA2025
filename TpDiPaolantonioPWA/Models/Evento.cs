@@ -22,6 +22,8 @@
 
         public int capacidad {  get; set; }
 
+        public string DescripcionDetallada {  get; set; }
+
 
         public List<Evento> ListarEventos()
         {
@@ -40,7 +42,9 @@
             e1.portada = "/img/Eventos/Kuitca.png";
             e1.tipo = "Recital";
             e1.valor = 12500;
-            
+            e1.DescripcionDetallada = "En el año 1981 mudó su taller a la calle Cangallo al 2300 donde trabajó hasta 1993. Allí pintó la serie Nadie olvida nada, que recibió el Premio al Artista Joven del Año de la Asociación Argentina de Críticos de Arte y el Premio del Café Einstein. También dirigió su primer espectáculo teatral junto con Carlos Ianni (1982). Participó en Ex-Presiones'83 en el Centro Cultural Recoleta. En 1984 Realizó su primera exposición en la galería de Julia Lublin, y estrenó su segunda obra teatral en colaboración con Carlos Ianni, El Mar Dulce y pintó la serie del mismo nombre. En 1985 realizó su primera muestra en la Galería Elizabeth Franck, Bélgica, y junto al grupo La nueva imagen, participó en el XVIII Bienal de San Pablo, donde presentó las cuatro obras de la serie Yo, como... y en la Galería del Retiro, con su serie Siete últimas canciones realizó su última muestra individual en la Argentina hasta casi 20 años después.\r\nNadie olvida nada, \"Ese año pasaba de todo en la Argentina y le dije adiós a lo que había hecho antes. Fue un movimiento de mucha introspección e intensidad\". Entonces surgió la serie Nadie olvida nada, germen de lo que vino después y núcleo del que parten sus muestras antológicas.[7]​";
+
+
 
 
 
@@ -59,7 +63,7 @@
             e2.portada = "/img/Eventos/CinePortugues.png";
             e2.tipo = "Muestra";
             e2.valor = 12500;
-
+            e2.DescripcionDetallada = "En el año 1981 mudó su taller a la calle Cangallo al 2300 donde trabajó hasta 1993. Allí pintó la serie Nadie olvida nada, que recibió el Premio al Artista Joven del Año de la Asociación Argentina de Críticos de Arte y el Premio del Café Einstein. También dirigió su primer espectáculo teatral junto con Carlos Ianni (1982). Participó en Ex-Presiones'83 en el Centro Cultural Recoleta. En 1984 Realizó su primera exposición en la galería de Julia Lublin, y estrenó su segunda obra teatral en colaboración con Carlos Ianni, El Mar Dulce y pintó la serie del mismo nombre. En 1985 realizó su primera muestra en la Galería Elizabeth Franck, Bélgica, y junto al grupo La nueva imagen, participó en el XVIII Bienal de San Pablo, donde presentó las cuatro obras de la serie Yo, como... y en la Galería del Retiro, con su serie Siete últimas canciones realizó su última muestra individual en la Argentina hasta casi 20 años después.\r\nNadie olvida nada, \"Ese año pasaba de todo en la Argentina y le dije adiós a lo que había hecho antes. Fue un movimiento de mucha introspección e intensidad\". Entonces surgió la serie Nadie olvida nada, germen de lo que vino después y núcleo del que parten sus muestras antológicas.[7]​";
             listaEventos.Add(e2);
 
             Evento e3 = new Evento();
@@ -74,6 +78,7 @@
             e3.portada = "/img/Eventos/Kuitca.png";
             e3.tipo = "Conferencia";
             e3.valor = 15500;
+            e3.DescripcionDetallada = "En el año 1981 mudó su taller a la calle Cangallo al 2300 donde trabajó hasta 1993. Allí pintó la serie Nadie olvida nada, que recibió el Premio al Artista Joven del Año de la Asociación Argentina de Críticos de Arte y el Premio del Café Einstein. También dirigió su primer espectáculo teatral junto con Carlos Ianni (1982). Participó en Ex-Presiones'83 en el Centro Cultural Recoleta. En 1984 Realizó su primera exposición en la galería de Julia Lublin, y estrenó su segunda obra teatral en colaboración con Carlos Ianni, El Mar Dulce y pintó la serie del mismo nombre. En 1985 realizó su primera muestra en la Galería Elizabeth Franck, Bélgica, y junto al grupo La nueva imagen, participó en el XVIII Bienal de San Pablo, donde presentó las cuatro obras de la serie Yo, como... y en la Galería del Retiro, con su serie Siete últimas canciones realizó su última muestra individual en la Argentina hasta casi 20 años después.\r\nNadie olvida nada, \"Ese año pasaba de todo en la Argentina y le dije adiós a lo que había hecho antes. Fue un movimiento de mucha introspección e intensidad\". Entonces surgió la serie Nadie olvida nada, germen de lo que vino después y núcleo del que parten sus muestras antológicas.[7]​";
 
             listaEventos.Add(e3);
 
@@ -89,7 +94,7 @@
             e4.portada = "/img/Eventos/Kuitca.png";
             e4.tipo = "Muestra";
             e4.valor = 20000;
-
+            e4.DescripcionDetallada = "En el año 1981 mudó su taller a la calle Cangallo al 2300 donde trabajó hasta 1993. Allí pintó la serie Nadie olvida nada, que recibió el Premio al Artista Joven del Año de la Asociación Argentina de Críticos de Arte y el Premio del Café Einstein. También dirigió su primer espectáculo teatral junto con Carlos Ianni (1982). Participó en Ex-Presiones'83 en el Centro Cultural Recoleta. En 1984 Realizó su primera exposición en la galería de Julia Lublin, y estrenó su segunda obra teatral en colaboración con Carlos Ianni, El Mar Dulce y pintó la serie del mismo nombre. En 1985 realizó su primera muestra en la Galería Elizabeth Franck, Bélgica, y junto al grupo La nueva imagen, participó en el XVIII Bienal de San Pablo, donde presentó las cuatro obras de la serie Yo, como... y en la Galería del Retiro, con su serie Siete últimas canciones realizó su última muestra individual en la Argentina hasta casi 20 años después.\r\nNadie olvida nada, \"Ese año pasaba de todo en la Argentina y le dije adiós a lo que había hecho antes. Fue un movimiento de mucha introspección e intensidad\". Entonces surgió la serie Nadie olvida nada, germen de lo que vino después y núcleo del que parten sus muestras antológicas.[7]​";
             listaEventos.Add(e4);
 
             Evento e5 = new Evento();
@@ -104,7 +109,7 @@
             e5.portada = "/img/Eventos/Kuitca.png";
             e5.tipo = "Conferencia";
             e5.valor = 10000;
-
+            e5.DescripcionDetallada = "En el año 1981 mudó su taller a la calle Cangallo al 2300 donde trabajó hasta 1993. Allí pintó la serie Nadie olvida nada, que recibió el Premio al Artista Joven del Año de la Asociación Argentina de Críticos de Arte y el Premio del Café Einstein. También dirigió su primer espectáculo teatral junto con Carlos Ianni (1982). Participó en Ex-Presiones'83 en el Centro Cultural Recoleta. En 1984 Realizó su primera exposición en la galería de Julia Lublin, y estrenó su segunda obra teatral en colaboración con Carlos Ianni, El Mar Dulce y pintó la serie del mismo nombre. En 1985 realizó su primera muestra en la Galería Elizabeth Franck, Bélgica, y junto al grupo La nueva imagen, participó en el XVIII Bienal de San Pablo, donde presentó las cuatro obras de la serie Yo, como... y en la Galería del Retiro, con su serie Siete últimas canciones realizó su última muestra individual en la Argentina hasta casi 20 años después.\r\nNadie olvida nada, \"Ese año pasaba de todo en la Argentina y le dije adiós a lo que había hecho antes. Fue un movimiento de mucha introspección e intensidad\". Entonces surgió la serie Nadie olvida nada, germen de lo que vino después y núcleo del que parten sus muestras antológicas.[7]​";
             listaEventos.Add(e5);
 
 

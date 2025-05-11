@@ -37,19 +37,26 @@
                     <tbody class="fuente_tabla_CompraDetalle">
                             @foreach (var e in Model)
                             {
-                            <tr>
-                                <td>@e.name</td>
-                                <td>@e.fechaInicio.ToString("dd/MM/yyyy")</td>
-                                <td>@e.fechaFin.ToString("dd/MM/yyyy")</td>
-                                <td>@e.valor</td>
-                                <td>@e.foro</td>
-                                <td>@e.tipo</td>
-                                <td>@e.autor</td>
-                                <td><input class="form-check-input" type="checkbox" value="" id="checkDisabled" ></td>
+                             <form asp-controller="Eventos" asp-action="Procesos">
+                                <tr>
+                                    <td>@e.name</td>
+                                    <td>@e.fechaInicio.ToString("dd/MM/yyyy")</td>
+                                    <td>@e.fechaFin.ToString("dd/MM/yyyy")</td>
+                                    <td>@e.valor</td>
+                                    <td>@e.foro</td>
+                                    <td>@e.tipo</td>
+                                    <td>@e.autor</td>
+                                    <td>
+                                       
+                                        
+                                    
+                                    
+                                    </td>
 
                                 
 
-                            </tr>
+                                </tr>
+                            </form>
                             }
                        
 

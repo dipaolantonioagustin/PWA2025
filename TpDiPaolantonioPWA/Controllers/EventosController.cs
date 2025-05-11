@@ -5,7 +5,15 @@ namespace TpDiPaolantonioPWA.Controllers
 {
     public class EventosController : Controller
     {
+        public IActionResult Detalle(int id)
+        {
+            Evento e = new Evento();
+            List<Evento> list = e.ListarEventos();
+            
+            e= list.Where(x => x.id == id).FirstOrDefault();
 
+            return View("Detalle",e);
+        }
         public IActionResult EventosABM()
         {
 
