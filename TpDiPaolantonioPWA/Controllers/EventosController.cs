@@ -5,6 +5,17 @@ namespace TpDiPaolantonioPWA.Controllers
 {
     public class EventosController : Controller
     {
+
+        public IActionResult EventosABM()
+        {
+
+            Evento E = new Evento();
+            IEnumerable<Evento> listaEventos = E.ListarEventos();
+
+            return View(listaEventos);
+        }
+
+
         public IActionResult Index()
         {
             Evento evento = new Evento();

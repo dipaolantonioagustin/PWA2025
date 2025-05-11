@@ -1,0 +1,51 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model IEnumerable<Obra>
+
+@{
+}
+<div class="container-fluid mb-5 pb-5 ">
+    <div class="container-fluid py-0 my-0">
+        <img src="~/img/Eventos/encabezado muestra permanente.jpg" style="width:100%;" alt="Alternate Text" />
+    </div>
+
+
+    
+
+<div class="container my-1 my-md-5 justify-content-between">
+
+
+    <div class="row d-flex justify-content-between">
+
+        @foreach (var e in Model)
+        {
+            <div class="card col-12 col-md-3 rounded-2 my-3 my-md-3 mx-md-1" style="border-radius: 15px 0 0 15px; box-shadow: 0 5px 5px 0 gray">
+                <h3 class="card-title fw-bold">@e.nombre</h3>
+                <h4 class="card-title fw-bold">@e.autor</h4>
+
+                <img src="@e.imagen" class="card-img-top" alt="Alternate Text" />
+
+                <div class="card-body">
+                    
+                    <p class="card-text">@e.fecha.ToString("MM,yyyy")</p>
+                   
+                </div>
+
+            </div>
+
+        }
+
+
+
+
+    </div>
+
+
+
+</div>
+
+
+
+</div>
