@@ -3,7 +3,7 @@
     public class Ticket
     {
         public int Id { get; set; }
-        public Evento evento_ticket {  get; set; }
+        public Eventos evento_ticket {  get; set; }
                  
         public int cantidad {  get; set; }
 
@@ -18,7 +18,7 @@
 
         public Ticket()
         {
-            evento_ticket = new Evento();
+            evento_ticket = new Eventos();
 
         }
 

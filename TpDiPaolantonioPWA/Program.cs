@@ -1,4 +1,4 @@
-using TpDiPaolantonioPWA.Models;
+using TpDiPaolantonioPWA.DAL;
 using Microsoft.EntityFrameworkCore.SqlServer;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,7 +7,10 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddDbContext<MasterContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("ConexionSQL")));
+builder.Services.AddDbContext<DbmuseoMalbaContext>(options =>
+      options.UseSqlServer(builder.Configuration.GetConnectionString("ConexionSQL"))
+      );
+
 
 var app = builder.Build();
 
@@ -24,6 +27,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Evento}/{action=Index}/{id?}");
 
 app.Run();

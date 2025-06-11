@@ -9,8 +9,8 @@ namespace TpDiPaolantonioPWA.Controllers
         
         public IActionResult Index()
         {
-            Evento evento = new Evento();
-            List<Evento> listadoEventos = evento.ListarEventos();
+            Eventos evento = new Eventos();
+            List<Eventos> listadoEventos = evento.ListarEventos();
 
             List<Ticket> ticketList = new List<Ticket>();
 
@@ -53,8 +53,8 @@ namespace TpDiPaolantonioPWA.Controllers
         public IActionResult DetalleCompra()
         {
 
-            Evento evento = new Evento();
-            List<Evento> listadoEventos = evento.ListarEventos();
+            Eventos evento = new Eventos();
+            List<Eventos> listadoEventos = evento.ListarEventos();
 
             List<Ticket> ticketList = new List<Ticket>();
 
@@ -70,8 +70,8 @@ namespace TpDiPaolantonioPWA.Controllers
 
         public IActionResult ConfirmarCompra(Carrito c) {
 
-            Evento evento = new Evento();
-            List<Evento> listadoEventos = evento.ListarEventos();
+            Eventos evento = new Eventos();
+            List<Eventos> listadoEventos = evento.ListarEventos();
 
             List<Ticket> ticketList = new List<Ticket>();
 

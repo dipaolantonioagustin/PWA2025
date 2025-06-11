@@ -3,127 +3,134 @@ using System.Net.NetworkInformation;
 using TpDiPaolantonioPWA.Models;
 using static System.Net.Mime.MediaTypeNames;
 using System.Text.Json;
+using TpDiPaolantonioPWA.DAL;
 
 
 namespace TpDiPaolantonioPWA.Controllers
 {
     public class EventosController : Controller
     {
-
-        public IActionResult AgregarEvento(Evento e)
+        private readonly DbmuseoMalbaContext _DbContext;
+        public EventosController(DbmuseoMalbaContext _context)
         {
-            Evento evento = new Evento();
-            List<Evento> eventos = evento.ListarEventos();
-            eventos.Add(e);
-            
-            if (e != null)
-            {
-                TempData["Mensaje"] = "Se Agrego el Evento Correctamente";
-                TempData["verificador"] = "true";
-            }
-            else 
-            {
-                TempData["Mensaje"] = "No Se Pudo Agregar el Evento Correctamente";
-                TempData["verificador"] = "false";
-
-            }
-            
-
-            return View("EventosABM", eventos);
-
-            
-        }
-        public IActionResult EventosAlta()
-        {
-            return View();
+            _DbContext = _context;
         }
 
-         [HttpPost]
-        public IActionResult AgregarTickets(int cantidad, int e)
-        {
-            Evento evento = new Evento();
-            List<Evento> listaEventos = evento.ListarEventos();
 
-            evento = listaEventos.Where(x => x.id == e).FirstOrDefault();
+        //public IActionResult AgregarEvento(Evento e)
+        //{
+        //    Evento evento = new Evento();
+        //    List<Evento> eventos = evento.ListarEventos();
+        //    eventos.Add(e);
+            
+        //    if (e != null)
+        //    {
+        //        TempData["Mensaje"] = "Se Agrego el Evento Correctamente";
+        //        TempData["verificador"] = "true";
+        //    }
+        //    else 
+        //    {
+        //        TempData["Mensaje"] = "No Se Pudo Agregar el Evento Correctamente";
+        //        TempData["verificador"] = "false";
+
+        //    }
+            
+
+        //    return View("EventosABM", eventos);
+
+            
+        //}
+        //public IActionResult EventosAlta()
+        //{
+        //    return View();
+        //}
+
+        // [HttpPost]
+        //public IActionResult AgregarTickets(int cantidad, int e)
+        //{
+        //    Evento evento = new Evento();
+        //    List<Evento> listaEventos = evento.ListarEventos();
+
+        //    evento = listaEventos.Where(x => x.id == e).FirstOrDefault();
 
 
-            if (cantidad >= 1)
-            {
-                TempData["Mensaje"] = "Se han Agregado los Tickets a su Carrito";
-                TempData["Key"] = "true";
-            }
-            else if (cantidad < 1)
-            {
-                TempData["Mensaje"] = "El Número de Tickets no Puede ser Menor a 1";
-                TempData["Key"] = "false";
-            }
+        //    if (cantidad >= 1)
+        //    {
+        //        TempData["Mensaje"] = "Se han Agregado los Tickets a su Carrito";
+        //        TempData["Key"] = "true";
+        //    }
+        //    else if (cantidad < 1)
+        //    {
+        //        TempData["Mensaje"] = "El Número de Tickets no Puede ser Menor a 1";
+        //        TempData["Key"] = "false";
+        //    }
           
 
-            return View("Detalle", evento);
-        }
-        public IActionResult Detalle(int id)
-        {
-            Evento e = new Evento();
-            List<Evento> list = e.ListarEventos();
+        //    return View("Detalle", evento);
+        //}
+        //public IActionResult Detalle(int id)
+        //{
+        //    Evento e = new Evento();
+        //    List<Evento> list = e.ListarEventos();
             
-            e= list.Where(x => x.id == id).FirstOrDefault();
+        //    e= list.Where(x => x.id == id).FirstOrDefault();
 
-            return View("Detalle",e);
-        }
-        public IActionResult EventosABM()
-        {
+        //    return View("Detalle",e);
+        //}
+        //public IActionResult EventosABM()
+        //{
 
-            Evento E = new Evento();
-            IEnumerable<Evento> listaEventos = E.ListarEventos();
+        //    Evento E = new Evento();
+        //    IEnumerable<Evento> listaEventos = E.ListarEventos();
 
-            return View(listaEventos);
-        }
+        //    return View(listaEventos);
+        //}
 
 
         public IActionResult Index()
         {
-            Evento evento = new Evento();
-            List<Evento> listadoEventos = evento.ListarEventos();
+           // Evento evento = new Evento();
+            List<Evento> listadoEventos = _DbContext.Eventos.ToList();//evento.ListarEventos();
             return View(listadoEventos);
         }
 
 
-        [HttpPost]
-        public IActionResult Filtrar(Evento eventoBuscado, int? mes, int? anio)
-        {
-            Evento evento = new Evento();
-            List<Evento> listadoEventos = evento.ListarEventos();
+        //[HttpPost]
+        //public IActionResult Filtrar(Evento eventoBuscado, int? mes, int? anio)
+        //{
+        //    Evento evento = new Evento();
+        //    List<Evento> listadoEventos = evento.ListarEventos();
 
-            if (!string.IsNullOrEmpty(eventoBuscado.name))
+        //    if (!string.IsNullOrEmpty(eventoBuscado.name))
 
-            { listadoEventos = listadoEventos.Where(e => e.name.Contains(eventoBuscado.name, StringComparison.OrdinalIgnoreCase)).ToList(); }
+        //    { listadoEventos = listadoEventos.Where(e => e.name.Contains(eventoBuscado.name, StringComparison.OrdinalIgnoreCase)).ToList(); }
 
-            if (!string.IsNullOrEmpty(eventoBuscado.autor))
+        //    if (!string.IsNullOrEmpty(eventoBuscado.autor))
 
-            { listadoEventos = listadoEventos.Where(e => e.autor.Contains(eventoBuscado.autor, StringComparison.OrdinalIgnoreCase)).ToList(); }
+        //    { listadoEventos = listadoEventos.Where(e => e.autor.Contains(eventoBuscado.autor, StringComparison.OrdinalIgnoreCase)).ToList(); }
 
-            if (!string.IsNullOrEmpty(eventoBuscado.tipo))
+        //    if (!string.IsNullOrEmpty(eventoBuscado.tipo))
 
-            { listadoEventos = listadoEventos.Where(e => e.tipo == eventoBuscado.tipo).ToList(); }
+        //    { listadoEventos = listadoEventos.Where(e => e.tipo == eventoBuscado.tipo).ToList(); }
 
-            if (!string.IsNullOrEmpty(eventoBuscado.foro))
+        //    if (!string.IsNullOrEmpty(eventoBuscado.foro))
 
-            { listadoEventos = listadoEventos.Where(e => e.foro == eventoBuscado.foro).ToList(); }
+        //    { listadoEventos = listadoEventos.Where(e => e.foro == eventoBuscado.foro).ToList(); }
 
 
-            if(mes.HasValue && anio.HasValue)
+        //    if(mes.HasValue && anio.HasValue)
             
-            {   
-                DateTime fechaBusquedaInicio = new DateTime(anio.Value, mes.Value, 1);
-                DateTime fechaBusquedaFin = fechaBusquedaInicio.AddMonths(1).AddDays(-1);
+        //    {   
+        //        DateTime fechaBusquedaInicio = new DateTime(anio.Value, mes.Value, 1);
+        //        DateTime fechaBusquedaFin = fechaBusquedaInicio.AddMonths(1).AddDays(-1);
 
-                listadoEventos = listadoEventos.Where(e => e.fechaInicio <= fechaBusquedaFin && e.fechaFin >= fechaBusquedaInicio).ToList();
+        //        listadoEventos = listadoEventos.Where(e => e.fechaInicio <= fechaBusquedaFin && e.fechaFin >= fechaBusquedaInicio).ToList();
                 
-            }
+        //    }
 
-            return View("Index",listadoEventos);
+        //    return View("Index",listadoEventos);
 
 
-        }
+        //}
     }
 }

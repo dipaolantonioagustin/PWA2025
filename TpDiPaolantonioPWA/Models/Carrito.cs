@@ -37,7 +37,7 @@
 
             
         }
-        public void agregarTicket(Evento eventos, int cantidades)
+        public void agregarTicket(Eventos eventos, int cantidades)
         {
             Ticket verificador = tickets.FirstOrDefault(x => x.evento_ticket.id == eventos.id);
 
@@ -62,7 +62,7 @@
             }
         }
 
-        public void sacarTicket(Evento eventos, int cantidades)
+        public void sacarTicket(Eventos eventos, int cantidades)
         {
 
             Ticket verificador = tickets.FirstOrDefault(x => x.evento_ticket.id == eventos.id);

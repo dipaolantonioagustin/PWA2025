@@ -1,6 +1,6 @@
 ﻿namespace TpDiPaolantonioPWA.Models
 {
-    public class Evento
+    public class Eventos
     {
         public int id { get; set; }
         public string name { get; set; }
@@ -25,12 +25,12 @@
         public string DescripcionDetallada {  get; set; }
 
 
-        public List<Evento> ListarEventos()
+        public List<Eventos> ListarEventos()
         {
-            List<Evento> listaEventos = new List<Evento>();
+            List<Eventos> listaEventos = new List<Eventos>();
 
 
-            Evento e1 = new Evento();
+            Eventos e1 = new Eventos();
             e1.id = 1;
             e1.name = "Kuitca y Moura en Dialogos";
             e1.autor = "Kuitca";
@@ -51,7 +51,7 @@
             listaEventos.Add(e1);
 
 
-            Evento e2 = new Evento();
+            Eventos e2 = new Eventos();
             e2.id = 2;
             e2.name = "Cine Portugues";
             e2.autor = "Directores Portugal";
@@ -66,7 +66,7 @@
             e2.DescripcionDetallada = "En el año 1981 mudó su taller a la calle Cangallo al 2300 donde trabajó hasta 1993. Allí pintó la serie Nadie olvida nada, que recibió el Premio al Artista Joven del Año de la Asociación Argentina de Críticos de Arte y el Premio del Café Einstein. También dirigió su primer espectáculo teatral junto con Carlos Ianni (1982). Participó en Ex-Presiones'83 en el Centro Cultural Recoleta. En 1984 Realizó su primera exposición en la galería de Julia Lublin, y estrenó su segunda obra teatral en colaboración con Carlos Ianni, El Mar Dulce y pintó la serie del mismo nombre. En 1985 realizó su primera muestra en la Galería Elizabeth Franck, Bélgica, y junto al grupo La nueva imagen, participó en el XVIII Bienal de San Pablo, donde presentó las cuatro obras de la serie Yo, como... y en la Galería del Retiro, con su serie Siete últimas canciones realizó su última muestra individual en la Argentina hasta casi 20 años después.\r\nNadie olvida nada, \"Ese año pasaba de todo en la Argentina y le dije adiós a lo que había hecho antes. Fue un movimiento de mucha introspección e intensidad\". Entonces surgió la serie Nadie olvida nada, germen de lo que vino después y núcleo del que parten sus muestras antológicas.[7]​";
             listaEventos.Add(e2);
 
-            Evento e3 = new Evento();
+            Eventos e3 = new Eventos();
             e3.id = 3;
             e3.name = "Kuitca y Moura en Dialogos";
             e3.autor = "Kuitca";
@@ -82,7 +82,7 @@
 
             listaEventos.Add(e3);
 
-            Evento e4 = new Evento();
+            Eventos e4 = new Eventos();
             e4.id = 3;
             e4.name = "Kuitca y Moura en Dialogos";
             e4.autor = "Kuitca";
@@ -97,7 +97,7 @@
             e4.DescripcionDetallada = "En el año 1981 mudó su taller a la calle Cangallo al 2300 donde trabajó hasta 1993. Allí pintó la serie Nadie olvida nada, que recibió el Premio al Artista Joven del Año de la Asociación Argentina de Críticos de Arte y el Premio del Café Einstein. También dirigió su primer espectáculo teatral junto con Carlos Ianni (1982). Participó en Ex-Presiones'83 en el Centro Cultural Recoleta. En 1984 Realizó su primera exposición en la galería de Julia Lublin, y estrenó su segunda obra teatral en colaboración con Carlos Ianni, El Mar Dulce y pintó la serie del mismo nombre. En 1985 realizó su primera muestra en la Galería Elizabeth Franck, Bélgica, y junto al grupo La nueva imagen, participó en el XVIII Bienal de San Pablo, donde presentó las cuatro obras de la serie Yo, como... y en la Galería del Retiro, con su serie Siete últimas canciones realizó su última muestra individual en la Argentina hasta casi 20 años después.\r\nNadie olvida nada, \"Ese año pasaba de todo en la Argentina y le dije adiós a lo que había hecho antes. Fue un movimiento de mucha introspección e intensidad\". Entonces surgió la serie Nadie olvida nada, germen de lo que vino después y núcleo del que parten sus muestras antológicas.[7]​";
             listaEventos.Add(e4);
 
-            Evento e5 = new Evento();
+            Eventos e5 = new Eventos();
             e5.id = 3;
             e5.name = "Kuitca y Moura en Dialogos";
             e5.autor = "Kuitca";
