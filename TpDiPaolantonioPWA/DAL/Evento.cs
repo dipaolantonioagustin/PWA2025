@@ -19,7 +19,7 @@ public partial class Evento
 
     public int SalaId { get; set; }
 
-    public byte[] Portada { get; set; } = null!;
+    public string Portada { get; set; } = null!;
 
     public int TipoId { get; set; }
 
@@ -28,6 +28,8 @@ public partial class Evento
     public string DescripcionDetalle { get; set; } = null!;
 
     public virtual Autor Autor { get; set; } = null!;
+
+    public virtual Sala Sala { get; set; } = null!;
 
     public virtual TipoEvento Tipo { get; set; } = null!;
 }

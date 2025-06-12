@@ -1,6 +1,7 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
+@using TpDiPaolantonioPWA.DAL
 
 @model IEnumerable<Obra>
 
@@ -22,14 +23,14 @@
         @foreach (var e in Model)
         {
             <div class="card col-12 col-md-3 rounded-2 my-3 my-md-3 mx-md-1" style="border-radius: 15px 0 0 15px; box-shadow: 0 5px 5px 0 gray">
-                <h3 class="card-title fw-bold">@e.nombre</h3>
-                <h4 class="card-title fw-bold">@e.autor</h4>
+                <h3 class="card-title fw-bold">@e.NombreObra</h3>
+                <h4 class="card-title fw-bold">@e.</h4>
 
-                <img src="@e.imagen" class="card-img-top" alt="Alternate Text" />
+                <img src="@e.ImagenObra" class="card-img-top" alt="Alternate Text" />
 
                 <div class="card-body">
                     
-                    <p class="card-text">@e.fecha.ToString("MM,yyyy")</p>
+                    <p class="card-text">@e.FechaObra.ToString("MM,yyyy")</p>
                    
                 </div>
 

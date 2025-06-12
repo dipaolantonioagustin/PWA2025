@@ -9,15 +9,15 @@ namespace TpDiPaolantonioPWA.Controllers
         
         public IActionResult Index()
         {
-            Eventos evento = new Eventos();
-            List<Eventos> listadoEventos = evento.ListarEventos();
+            _Eventos evento = new _Eventos();
+            List<_Eventos> listadoEventos = evento.ListarEventos();
 
-            List<Ticket> ticketList = new List<Ticket>();
+            List<_Ticket> ticketList = new List<_Ticket>();
 
-            ticketList.Add(new Ticket { evento_ticket = listadoEventos[0], cantidad = 2, Id = 1 });
-            ticketList.Add(new Ticket { evento_ticket = listadoEventos[3], cantidad = 4, Id = 2 });
-            ticketList.Add(new Ticket { evento_ticket = listadoEventos[1], cantidad = 1, Id = 3 });
-            Carrito carrito = new Carrito();
+            ticketList.Add(new _Ticket { evento_ticket = listadoEventos[0], cantidad = 2, Id = 1 });
+            ticketList.Add(new _Ticket { evento_ticket = listadoEventos[3], cantidad = 4, Id = 2 });
+            ticketList.Add(new _Ticket { evento_ticket = listadoEventos[1], cantidad = 1, Id = 3 });
+            _Carrito carrito = new _Carrito();
             carrito.tickets = ticketList;
 
             return View("Index",carrito);
@@ -27,7 +27,7 @@ namespace TpDiPaolantonioPWA.Controllers
         public IActionResult CalcularDescuento(string carritoJson, bool socio, float importe)
         {
 
-            Carrito carrito = JsonSerializer.Deserialize<Carrito>(carritoJson);
+            _Carrito carrito = JsonSerializer.Deserialize<_Carrito>(carritoJson);
             carrito.usuario.socio = socio;
             carrito.CalcularDescuento();
 
@@ -42,7 +42,7 @@ namespace TpDiPaolantonioPWA.Controllers
         public IActionResult CalcularGastosOperativos(string carritoJson)
         {
 
-            Carrito carrito = JsonSerializer.Deserialize<Carrito>(carritoJson);
+            _Carrito carrito = JsonSerializer.Deserialize<_Carrito>(carritoJson);
             
             carrito.CalcularGastosOperativos();
 
@@ -53,32 +53,32 @@ namespace TpDiPaolantonioPWA.Controllers
         public IActionResult DetalleCompra()
         {
 
-            Eventos evento = new Eventos();
-            List<Eventos> listadoEventos = evento.ListarEventos();
+            _Eventos evento = new _Eventos();
+            List<_Eventos> listadoEventos = evento.ListarEventos();
 
-            List<Ticket> ticketList = new List<Ticket>();
+            List<_Ticket> ticketList = new List<_Ticket>();
 
-            ticketList.Add(new Ticket { evento_ticket = listadoEventos[0], cantidad = 2, Id = 1 });
-            ticketList.Add(new Ticket { evento_ticket = listadoEventos[3], cantidad = 4, Id = 2 });
-            ticketList.Add(new Ticket { evento_ticket = listadoEventos[1], cantidad = 1, Id = 3 });
-            Carrito carrito = new Carrito();
+            ticketList.Add(new _Ticket { evento_ticket = listadoEventos[0], cantidad = 2, Id = 1 });
+            ticketList.Add(new _Ticket { evento_ticket = listadoEventos[3], cantidad = 4, Id = 2 });
+            ticketList.Add(new _Ticket { evento_ticket = listadoEventos[1], cantidad = 1, Id = 3 });
+            _Carrito carrito = new _Carrito();
             carrito.tickets = ticketList;
             carrito.CalcularGastosOperativos();
             return View("DetalleCompra", carrito);
         }
 
 
-        public IActionResult ConfirmarCompra(Carrito c) {
+        public IActionResult ConfirmarCompra(_Carrito c) {
 
-            Eventos evento = new Eventos();
-            List<Eventos> listadoEventos = evento.ListarEventos();
+            _Eventos evento = new _Eventos();
+            List<_Eventos> listadoEventos = evento.ListarEventos();
 
-            List<Ticket> ticketList = new List<Ticket>();
+            List<_Ticket> ticketList = new List<_Ticket>();
 
-            ticketList.Add(new Ticket { evento_ticket = listadoEventos[0], cantidad = 2, Id = 1 });
-            ticketList.Add(new Ticket { evento_ticket = listadoEventos[3], cantidad = 4, Id = 2 });
-            ticketList.Add(new Ticket { evento_ticket = listadoEventos[1], cantidad = 1, Id = 3 });
-            Carrito carrito = new Carrito();
+            ticketList.Add(new _Ticket { evento_ticket = listadoEventos[0], cantidad = 2, Id = 1 });
+            ticketList.Add(new _Ticket { evento_ticket = listadoEventos[3], cantidad = 4, Id = 2 });
+            ticketList.Add(new _Ticket { evento_ticket = listadoEventos[1], cantidad = 1, Id = 3 });
+            _Carrito carrito = new _Carrito();
             carrito.tickets = ticketList;
             carrito.CalcularGastosOperativos();
 

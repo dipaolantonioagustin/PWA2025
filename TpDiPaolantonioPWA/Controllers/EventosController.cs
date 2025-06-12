@@ -4,17 +4,18 @@ using TpDiPaolantonioPWA.Models;
 using static System.Net.Mime.MediaTypeNames;
 using System.Text.Json;
 using TpDiPaolantonioPWA.DAL;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace TpDiPaolantonioPWA.Controllers
 {
     public class EventosController : Controller
     {
-        private readonly DbmuseoMalbaContext _DbContext;
-        public EventosController(DbmuseoMalbaContext _context)
-        {
-            _DbContext = _context;
-        }
+       private readonly DbmuseoMalbaContext _DbContext;
+       public EventosController(DbmuseoMalbaContext _context)
+       {
+          _DbContext = _context;
+       }
 
 
         //public IActionResult AgregarEvento(Evento e)
@@ -89,8 +90,10 @@ namespace TpDiPaolantonioPWA.Controllers
 
         public IActionResult Index()
         {
-           // Evento evento = new Evento();
-            List<Evento> listadoEventos = _DbContext.Eventos.ToList();//evento.ListarEventos();
+            // Evento evento = new Evento();
+            List<Evento> listadoEventos = _DbContext.Eventos.Include(p => p.Autor)
+                .Include(p => p.Sala).Include(p => p.Tipo).ToList();
+           
             return View(listadoEventos);
         }
 

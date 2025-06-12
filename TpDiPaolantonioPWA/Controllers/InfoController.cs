@@ -7,9 +7,9 @@ namespace TpDiPaolantonioPWA.Controllers
     {
         public IActionResult Index(int info)
         {
-            Info i = new Info();
+            _Info i = new _Info();
 
-            List<Info> li = i.listadoInfo();
+            List<_Info> li = i.listadoInfo();
 
             i= li.Where(x => x.id == info).FirstOrDefault();
 

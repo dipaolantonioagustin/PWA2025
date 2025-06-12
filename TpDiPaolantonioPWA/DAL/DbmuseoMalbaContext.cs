@@ -19,15 +19,20 @@ public partial class DbmuseoMalbaContext : DbContext
 
     public virtual DbSet<Evento> Eventos { get; set; }
 
+    public virtual DbSet<Nacionalidad> Nacionalidads { get; set; }
+
     public virtual DbSet<Obra> Obras { get; set; }
 
     public virtual DbSet<Pai> Pais { get; set; }
+
+    public virtual DbSet<Sala> Salas { get; set; }
 
     public virtual DbSet<Ticket> Tickets { get; set; }
 
     public virtual DbSet<TipoEvento> TipoEventos { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) { }
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    { }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -57,9 +62,7 @@ public partial class DbmuseoMalbaContext : DbContext
         {
             entity.ToTable("evento");
 
-            entity.Property(e => e.Id)
-                .ValueGeneratedNever()
-                .HasColumnName("id");
+            entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.AutorId).HasColumnName("autor_id");
             entity.Property(e => e.Descripcion)
                 .HasMaxLength(50)
@@ -76,7 +79,8 @@ public partial class DbmuseoMalbaContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("nombre_evento");
             entity.Property(e => e.Portada)
-                .HasMaxLength(8000)
+                .HasMaxLength(50)
+                .IsUnicode(false)
                 .HasColumnName("portada");
             entity.Property(e => e.SalaId).HasColumnName("sala_id");
             entity.Property(e => e.TipoId).HasColumnName("tipo_id");
@@ -87,19 +91,37 @@ public partial class DbmuseoMalbaContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_evento_autor");
 
+            entity.HasOne(d => d.Sala).WithMany(p => p.Eventos)
+                .HasForeignKey(d => d.SalaId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_evento_sala");
+
             entity.HasOne(d => d.Tipo).WithMany(p => p.Eventos)
                 .HasForeignKey(d => d.TipoId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_evento_tipo_evento");
         });
 
+        modelBuilder.Entity<Nacionalidad>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToTable("nacionalidad");
+
+            entity.Property(e => e.Id)
+                .ValueGeneratedOnAdd()
+                .HasColumnName("id");
+            entity.Property(e => e.Nacionalidad1)
+                .HasMaxLength(10)
+                .IsFixedLength()
+                .HasColumnName("nacionalidad");
+        });
+
         modelBuilder.Entity<Obra>(entity =>
         {
             entity.ToTable("obra");
 
-            entity.Property(e => e.Id)
-                .ValueGeneratedNever()
-                .HasColumnName("id");
+            entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.FechaObra).HasColumnName("fecha_obra");
             entity.Property(e => e.IdAutor).HasColumnName("id_autor");
             entity.Property(e => e.ImagenObra)
@@ -120,13 +142,22 @@ public partial class DbmuseoMalbaContext : DbContext
         {
             entity.ToTable("pais");
 
-            entity.Property(e => e.Id)
-                .ValueGeneratedNever()
-                .HasColumnName("id");
+            entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Nombre)
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("nombre");
+        });
+
+        modelBuilder.Entity<Sala>(entity =>
+        {
+            entity.ToTable("sala");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.NombreSala)
+                .HasMaxLength(10)
+                .IsFixedLength()
+                .HasColumnName("nombre_sala");
         });
 
         modelBuilder.Entity<Ticket>(entity =>
@@ -136,7 +167,9 @@ public partial class DbmuseoMalbaContext : DbContext
                 .ToTable("ticket");
 
             entity.Property(e => e.CantEntradas).HasColumnName("cant_entradas");
-            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Id)
+                .ValueGeneratedOnAdd()
+                .HasColumnName("id");
             entity.Property(e => e.IdEvento).HasColumnName("id_evento");
             entity.Property(e => e.ValorTotal).HasColumnName("valor_total");
 
@@ -150,9 +183,7 @@ public partial class DbmuseoMalbaContext : DbContext
         {
             entity.ToTable("tipo_evento");
 
-            entity.Property(e => e.Id)
-                .ValueGeneratedNever()
-                .HasColumnName("id");
+            entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Tipo)
                 .HasMaxLength(10)
                 .IsUnicode(false)

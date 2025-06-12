@@ -7,8 +7,8 @@ namespace TpDiPaolantonioPWA.Controllers
     {
         public IActionResult Index()
         {
-            Eventos evento = new Eventos();
-            List<Eventos> listadoEventos = evento.ListarEventos();
+            _Eventos evento = new _Eventos();
+            List<_Eventos> listadoEventos = evento.ListarEventos();
 
             return View(listadoEventos);
         }

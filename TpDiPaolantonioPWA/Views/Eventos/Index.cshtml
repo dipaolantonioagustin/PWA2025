@@ -1,15 +1,17 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
-@using System.Globalization
 
-@using TpDiPaolantonioPWA.DAL.Evento
+@using System.Globalization
+@using TpDiPaolantonioPWA.DAL
 
 
 @{
 
     ViewData["Title"] = "Eventos Page";
 }
+@model List<TpDiPaolantonioPWA.DAL.Evento>
+
 <div class="container-fluid mb-5 pb-5 ">
     <div class="container-fluid py-0 my-0">
         <img src="~/img/Eventos/programacion.jpg" style="width:100%;" alt="Alternate Text" />
@@ -19,9 +21,9 @@
     <div class="container-fluid bg-body rounded-2 px-2 py-2 my-2">
 
         <form asp-controller="Eventos" asp-action="Filtrar" method="post" class="justify-content-between">
-          
+
             <div class="row g-3">
-               
+
                 <div class="rounded-1 col-12 col-lg-2 ">
 
                     <label class="form-label" style="color:aliceblue;">Nombre Muestra</label>
@@ -133,18 +135,18 @@
             {
            
                 <div class="card col-12 col-md-3 rounded-2 my-3 my-md-3 mx-md-1" style="border-radius: 15px 0 0 15px; box-shadow: 0 5px 5px 0 gray">
-                <a href="@Url.Action("Detalle","Eventos",new { id = e.id })" class="text-decoration-none text-dark">
+                <a href="@Url.Action("Detalle","Eventos",new { id = e.Id })" class="text-decoration-none text-dark">
                        
-                        <h3 class="card-title fw-bold">@e.name</h3>
-                        <h4 class="card-title fw-bold">@e.autor</h4>
+                        <h3 class="card-title fw-bold">@e.NombreEvento</h3>
+                        <h4 class="card-title fw-bold">@e.Autor.Apellido</h4>
 
-                        <img src="@e.portada" class="card-img-top" alt="Alternate Text" />
+                        <img src="@e.Portada" class="card-img-top" alt="Alternate Text" />
 
                         <div class="card-body">
-                            <h5 class="card-title fw-bold">@e.foro</h5>
-                            <p class="card-text">@e.description</p>
-                            <p class="text-muted">@e.fechaInicio</p>
-                            <p class="text-muted">@e.fechaFin</p>
+                            <h5 class="card-title fw-bold">@e.Tipo.Tipo</h5>
+                            <p class="card-text">@e.Descripcion</p>
+                            <p class="text-muted">@e.FechaInicio</p>
+                            <p class="text-muted">@e.FechaFin</p>
                         </div>
                      </a>
                 </div>

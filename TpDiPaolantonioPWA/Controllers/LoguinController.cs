@@ -13,10 +13,10 @@ namespace TpDiPaolantonioPWA.Controllers
 
 
         [HttpPost]
-        public IActionResult Logueo(Usuario usu)
+        public IActionResult Logueo(_Usuario usu)
         {
-            Usuario usuario = new Usuario();
-            List<Usuario> lista = usuario.ListaUsuarios();
+            _Usuario usuario = new _Usuario();
+            List<_Usuario> lista = usuario.ListaUsuarios();
 
             var Usuario = lista.Where(x => x.email == usu.email).FirstOrDefault();
 

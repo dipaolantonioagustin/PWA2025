@@ -1,12 +1,12 @@
 ﻿namespace TpDiPaolantonioPWA.Models
 {
-    public class Carrito
+    public class _Carrito
     {
 
 
-        public List<Ticket> tickets { get; set; }
+        public List<_Ticket> tickets { get; set; }
 
-        public Usuario usuario { get; set; } 
+        public _Usuario usuario { get; set; } 
         public float impuestos { get; set; }
         public float gastos_aderidos { get; set; }
         public float descuentos { get; set; }
@@ -15,7 +15,7 @@
 
         public float porcentualGastoOperativo{ get; set; }
 
-        public Carrito() { usuario = new Usuario(); porcentualGastoOperativo = (float) 0.025; }
+        public _Carrito() { usuario = new _Usuario(); porcentualGastoOperativo = (float) 0.025; }
 
         public void CalcularGastosOperativos()
         {
@@ -37,9 +37,9 @@
 
             
         }
-        public void agregarTicket(Eventos eventos, int cantidades)
+        public void agregarTicket(_Eventos eventos, int cantidades)
         {
-            Ticket verificador = tickets.FirstOrDefault(x => x.evento_ticket.id == eventos.id);
+            _Ticket verificador = tickets.FirstOrDefault(x => x.evento_ticket.id == eventos.id);
 
 
             if (verificador != null)
@@ -51,7 +51,7 @@
 
             else
             {
-                tickets.Add(new Ticket
+                tickets.Add(new _Ticket
                 {
                     evento_ticket = eventos,
                     cantidad = cantidades
@@ -62,10 +62,10 @@
             }
         }
 
-        public void sacarTicket(Eventos eventos, int cantidades)
+        public void sacarTicket(_Eventos eventos, int cantidades)
         {
 
-            Ticket verificador = tickets.FirstOrDefault(x => x.evento_ticket.id == eventos.id);
+            _Ticket verificador = tickets.FirstOrDefault(x => x.evento_ticket.id == eventos.id);
 
 
             if (verificador != null)
@@ -108,7 +108,7 @@
             float total = 0;
             //float subTotal = 0;
 
-            foreach (Ticket T in this.tickets)
+            foreach (_Ticket T in this.tickets)
             {
                 int cant = T.cantidad;
                 float valor = T.evento_ticket.valor;

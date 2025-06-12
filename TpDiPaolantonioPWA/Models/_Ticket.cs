@@ -1,9 +1,9 @@
 ﻿namespace TpDiPaolantonioPWA.Models
 {
-    public class Ticket
+    public class _Ticket
     {
         public int Id { get; set; }
-        public Eventos evento_ticket {  get; set; }
+        public _Eventos evento_ticket {  get; set; }
                  
         public int cantidad {  get; set; }
 
@@ -16,9 +16,9 @@
         }
 
 
-        public Ticket()
+        public _Ticket()
         {
-            evento_ticket = new Eventos();
+            evento_ticket = new _Eventos();
 
         }
 
