@@ -11,9 +11,9 @@ public partial class Evento
 
     public string Descripcion { get; set; } = null!;
 
-    public DateOnly FechaInicio { get; set; }
+    public DateTime FechaInicio { get; set; }
 
-    public DateOnly FechaFin { get; set; }
+    public DateTime FechaFin { get; set; }
 
     public int AutorId { get; set; }
 

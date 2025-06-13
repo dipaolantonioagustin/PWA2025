@@ -90,50 +90,71 @@ namespace TpDiPaolantonioPWA.Controllers
 
         public IActionResult Index()
         {
-            // Evento evento = new Evento();
-            List<Evento> listadoEventos = _DbContext.Eventos.Include(p => p.Autor)
+            
+            _Evento_Tipos listadoGeneral = new _Evento_Tipos();
+
+            listadoGeneral._e = _DbContext.Eventos.Include(p => p.Autor).ThenInclude(a => a.Nacionalidad)
                 .Include(p => p.Sala).Include(p => p.Tipo).ToList();
-           
-            return View(listadoEventos);
+            listadoGeneral._t = _DbContext.TipoEventos.ToList();
+
+            return View(listadoGeneral);
         }
 
 
-        //[HttpPost]
-        //public IActionResult Filtrar(Evento eventoBuscado, int? mes, int? anio)
-        //{
-        //    Evento evento = new Evento();
-        //    List<Evento> listadoEventos = evento.ListarEventos();
+        [HttpPost]
+        public IActionResult Filtrar(Evento eventoBuscado, int? mes, int? anio, bool? foro)
+        {
+            Evento evento = new Evento();
+            List<Evento> listadoEventos = _DbContext.Eventos.Include(p => p.Autor).ThenInclude(a => a.Nacionalidad)
+                .Include(p => p.Sala).Include(p => p.Tipo).ToList(); 
 
-        //    if (!string.IsNullOrEmpty(eventoBuscado.name))
+            if (!string.IsNullOrEmpty(eventoBuscado.NombreEvento))
 
-        //    { listadoEventos = listadoEventos.Where(e => e.name.Contains(eventoBuscado.name, StringComparison.OrdinalIgnoreCase)).ToList(); }
+            { listadoEventos = listadoEventos.Where(e => e.NombreEvento.Contains(eventoBuscado.NombreEvento, StringComparison.OrdinalIgnoreCase)).ToList(); }
 
-        //    if (!string.IsNullOrEmpty(eventoBuscado.autor))
+            if (!string.IsNullOrEmpty(eventoBuscado.Autor.Apellido))
 
-        //    { listadoEventos = listadoEventos.Where(e => e.autor.Contains(eventoBuscado.autor, StringComparison.OrdinalIgnoreCase)).ToList(); }
+            { listadoEventos = listadoEventos.Where(e => e.Autor.Apellido.Contains(eventoBuscado.Autor.Apellido, StringComparison.OrdinalIgnoreCase)).ToList(); }
 
-        //    if (!string.IsNullOrEmpty(eventoBuscado.tipo))
+            if (eventoBuscado.Tipo.Tipo != null)
 
-        //    { listadoEventos = listadoEventos.Where(e => e.tipo == eventoBuscado.tipo).ToList(); }
+            { listadoEventos = listadoEventos.Where(e => e.Tipo.Tipo == eventoBuscado.Tipo.Tipo).ToList(); }
 
-        //    if (!string.IsNullOrEmpty(eventoBuscado.foro))
+            if (foro != null)
 
-        //    { listadoEventos = listadoEventos.Where(e => e.foro == eventoBuscado.foro).ToList(); }
-
-
-        //    if(mes.HasValue && anio.HasValue)
-            
-        //    {   
-        //        DateTime fechaBusquedaInicio = new DateTime(anio.Value, mes.Value, 1);
-        //        DateTime fechaBusquedaFin = fechaBusquedaInicio.AddMonths(1).AddDays(-1);
-
-        //        listadoEventos = listadoEventos.Where(e => e.fechaInicio <= fechaBusquedaFin && e.fechaFin >= fechaBusquedaInicio).ToList();
+            { 
+                               
+                if(foro == true)
+                {
+                    listadoEventos = listadoEventos.Where(e => e.Autor.Nacionalidad.Nombre == "argentino").ToList();
+                }
+                else
+                {
+                    listadoEventos = listadoEventos.Where(e => e.Autor.Nacionalidad.Nombre != "argentino").ToList();
+                }
                 
-        //    }
+                      
+            
+            }
 
-        //    return View("Index",listadoEventos);
+
+            if (mes.HasValue && anio.HasValue)
+
+            {
+                DateTime fechaBusquedaInicio = new DateTime(anio.Value, mes.Value, 1);
+                DateTime fechaBusquedaFin = fechaBusquedaInicio.AddMonths(1).AddDays(-1);
+
+                listadoEventos = listadoEventos.Where(e => e.FechaInicio <= fechaBusquedaFin && e.FechaFin >= fechaBusquedaInicio).ToList();
+
+            }
+
+            _Evento_Tipos listaEnvio = new _Evento_Tipos();
+            listaEnvio._e = listadoEventos;
+            listaEnvio._t = _DbContext.TipoEventos.ToList();
+
+            return View("Index", listaEnvio);
 
 
-        //}
+        }
     }
 }

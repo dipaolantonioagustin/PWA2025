@@ -10,7 +10,9 @@
 
     ViewData["Title"] = "Eventos Page";
 }
-@model List<TpDiPaolantonioPWA.DAL.Evento>
+
+@model TpDiPaolantonioPWA.Models._Evento_Tipos 
+
 
 <div class="container-fluid mb-5 pb-5 ">
     <div class="container-fluid py-0 my-0">
@@ -28,7 +30,7 @@
 
                     <label class="form-label" style="color:aliceblue;">Nombre Muestra</label>
 
-                    <input class=" form-control" type="text" name="name" placeholder="Nombre Muestra" />
+                    <input class="form-control" type="text" name="NombreEvento" placeholder="Nombre Muestra" />
 
                 </div>
 
@@ -36,7 +38,7 @@
 
                     <label class="form-label" style="color:aliceblue;">Nombre Autor</label>
 
-                    <input class=" form-control" type="text" name="autor" placeholder="Nombre Autor" />
+                    <input class=" form-control" type="text" name="Autor.Apellido" placeholder="Nombre Autor" />
 
                 </div>
 
@@ -44,11 +46,14 @@
 
                     <label class="form-label" style="color:aliceblue;">Categoria</label>
 
-                    <select name="tipo" class="rounded-1 form-select">
+                    <select name="Tipo.Tipo" class="rounded-1 form-select">
                         <option></option>
-                        <option>Muestra</option>
-                        <option>Recital</option>
-                        <option>Conferencia</option>
+                       @foreach(var i in Model._t)
+                        {
+                            <option>@i.Tipo</option>
+                        }
+                        
+                       
                     </select>
 
                 </div>
@@ -59,8 +64,8 @@
                     
                     <select name="foro" class="rounded-2 form-select">
                         <option></option>
-                        <option>Nacional</option>
-                        <option>Internacional</option>
+                        <option value="true">Nacional</option>
+                        <option value="false">Internacional</option>
 
                     </select>
 
@@ -131,7 +136,7 @@
      
     <div class="row d-flex justify-content-between">
 
-            @foreach (var e in Model)
+            @foreach (var e in Model._e)
             {
            
                 <div class="card col-12 col-md-3 rounded-2 my-3 my-md-3 mx-md-1" style="border-radius: 15px 0 0 15px; box-shadow: 0 5px 5px 0 gray">
