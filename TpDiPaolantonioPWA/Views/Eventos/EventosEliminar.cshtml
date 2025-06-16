@@ -4,15 +4,19 @@
 @{
 }
 @using Microsoft.AspNetCore.Mvc.Rendering
-@model _EventoVM 
+
+@model _EventoVM
 
 <div class="container my-5">
     <div class="row justify-content-center">
         <div class="col-12 col-md-8">
             <div class="card shadow rounded-2">
-               
+
                 <div class="card-body p-4">
-                    <form asp-action="AgregarEvento" asp-controller="Eventos" method="post" enctype="multipart/form-data">
+                    <form asp-action="EliminarEvento" asp-controller="Eventos" method="post" enctype="multipart/form-data">
+
+                        <input type="hidden" name="oEvento.Id" value=@Model.oEvento.Id />
+
                         <div class="mb-3">
                             <label asp-for="oEvento.NombreEvento" class="form-label">Nombre del Evento</label>
                             <input asp-for="oEvento.NombreEvento" class="form-control" required />
@@ -39,32 +43,32 @@
 
                         <div class="mb-3">
                             <label asp-for="oEvento.Sala" class="form-label">Sala</label>
-                            <select asp-items="@Model.Sala.ToList()" asp-for="oEvento.SalaId" class="form-control" required >
-                            <option>----Sala----</option>
+                            <select asp-items="@Model.Sala.ToList()" asp-for="oEvento.SalaId" class="form-control" required>
+                                <option>----Sala----</option>
                             </select>
                         </div>
 
                         <div class="mb-3">
                             <label asp-for="oEvento.Autor" class="form-label">Autor</label>
-                            <select asp-items ="@Model.Autor.ToList()" asp-for="oEvento.AutorId" class="form-control" required >
-                                <option >----Autor----</option>
+                            <select asp-items="@Model.Autor.ToList()" asp-for="oEvento.AutorId" class="form-control" required>
+                                <option>----Autor----</option>
                             </select>
-  
+
                         </div>
 
                         <div class="mb-3">
                             <label asp-for="fotoEvento" class="form-label">Foto Portada</label>
-                            <input asp-for="@Model.fotoEvento" type="file" class="form-control" required />
+                            <input asp-for="@Model.fotoEvento" type="file" class="form-control" >
                         </div>
 
 
                         <div class="mb-3">
                             <label asp-for="oEvento.Tipo" class="form-label">Tipo</label>
-                            <select asp-items="@Model.Tipo.ToList()" asp-for="oEvento.TipoId" class="form-control" required >
-                            <option>----Tipo----</option>
-                            
+                            <select asp-items="@Model.Tipo.ToList()" asp-for="oEvento.TipoId" class="form-control" required>
+                                <option>----Tipo----</option>
 
-                           </select>
+
+                            </select>
                         </div>
 
                         <div class="mb-3">
@@ -73,7 +77,7 @@
                         </div>
 
                         <div class="d-grid">
-                            <button type="submit" class="btn btn-success">Guardar</button>
+                            <button type="submit" class="btn btn-danger">Elimninar</button>
                         </div>
 
                     </form>

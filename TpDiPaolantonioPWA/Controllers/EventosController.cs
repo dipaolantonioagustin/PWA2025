@@ -5,6 +5,7 @@ using static System.Net.Mime.MediaTypeNames;
 using System.Text.Json;
 using TpDiPaolantonioPWA.DAL;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 
 namespace TpDiPaolantonioPWA.Controllers
@@ -12,39 +13,113 @@ namespace TpDiPaolantonioPWA.Controllers
     public class EventosController : Controller
     {
        private readonly DbmuseoMalbaContext _DbContext;
-       public EventosController(DbmuseoMalbaContext _context)
+        private readonly IWebHostEnvironment _webHostEnvironment;
+       public EventosController(DbmuseoMalbaContext _context, IWebHostEnvironment _webHost)
        {
           _DbContext = _context;
+          _webHostEnvironment = _webHost;
        }
 
+        [HttpPost]
+        public IActionResult AgregarEvento(_EventoVM e)
+        {
 
-        //public IActionResult AgregarEvento(Evento e)
-        //{
-        //    Evento evento = new Evento();
-        //    List<Evento> eventos = evento.ListarEventos();
-        //    eventos.Add(e);
+            if (e != null)
+            {
+                string NombreArchivo = UpLoadFile(e);
+
+                Evento evento = new Evento()
+                {
+                    NombreEvento = e.oEvento.NombreEvento,
+                    FechaInicio = e.oEvento.FechaInicio,
+                    FechaFin = e.oEvento.FechaFin,
+                    Tipo = e.oEvento.Tipo,
+                    Sala = e.oEvento.Sala,
+                    AutorId = e.oEvento.AutorId,
+                    Descripcion = e.oEvento.Descripcion,
+                    DescripcionDetalle = e.oEvento.DescripcionDetalle,
+                    Portada = NombreArchivo,
+                    TipoId = e.oEvento.TipoId,
+                    SalaId = e.oEvento.SalaId,
+                    Valor = e.oEvento.Valor,
+
+                };
+
+                _DbContext.Eventos.Add(evento);
+                _DbContext.SaveChanges();
+
+                TempData["Mensaje"] = "Se Agrego el Evento Correctamente";
+                TempData["verificador"] = "true";
+            }
+            else
+            {
+                TempData["Mensaje"] = "No Se Pudo Agregar el Evento Correctamente";
+                TempData["verificador"] = "false";
+
+            }
+
+            List<Evento> lista = _DbContext.Eventos.Include(p => p.Autor).ThenInclude(a => a.Nacionalidad)
+                .Include(p => p.Sala).Include(p => p.Tipo).ToList();
+
+            return View("EventosABM", lista);
+
+
+        }
+
+        public IActionResult EventosAlta()
+        {
+            _EventoVM e = new _EventoVM()
+            {
+                Autor = _DbContext.Autors
+                    .Select(a => new SelectListItem
+                    {
+                        Value = a.Id.ToString(),
+                        Text = a.Nombre
+                    
+                    }).ToList(),
+               
+                Tipo = _DbContext.TipoEventos
+                    .Select(a => new SelectListItem
+                    {
+                        Value = a.Id.ToString(),
+                        Text = a.Tipo
+
+                    }).ToList(),
+                Sala = _DbContext.Salas
+                    .Select(a => new SelectListItem
+                    {
+                        Value = a.Id.ToString(),
+                        Text = a.NombreSala
+
+                    }).ToList(),
+
+            };
+
+            return View(e);
+        }
+
+        public string UpLoadFile(_EventoVM evento)
+        {
+            string nombreArchivo = null;
             
-        //    if (e != null)
-        //    {
-        //        TempData["Mensaje"] = "Se Agrego el Evento Correctamente";
-        //        TempData["verificador"] = "true";
-        //    }
-        //    else 
-        //    {
-        //        TempData["Mensaje"] = "No Se Pudo Agregar el Evento Correctamente";
-        //        TempData["verificador"] = "false";
 
-        //    }
-            
+            if (evento.fotoEvento != null)
+            {
+                string uploadDir = Path.Combine(_webHostEnvironment.WebRootPath, "img", "Eventos");
+                nombreArchivo = Guid.NewGuid().ToString() + "-" + evento.fotoEvento.FileName;
+                string rutaArchivo = Path.Combine(uploadDir, nombreArchivo);
 
-        //    return View("EventosABM", eventos);
+                using (var fileStream = new FileStream(rutaArchivo, FileMode.Create))
+                {
+                    evento.fotoEvento.CopyTo(fileStream);
+                }
 
-            
-        //}
-        //public IActionResult EventosAlta()
-        //{
-        //    return View();
-        //}
+               
+            }
+
+           
+            return nombreArchivo;
+        }
 
         // [HttpPost]
         //public IActionResult AgregarTickets(int cantidad, int e)
@@ -65,27 +140,29 @@ namespace TpDiPaolantonioPWA.Controllers
         //        TempData["Mensaje"] = "El Número de Tickets no Puede ser Menor a 1";
         //        TempData["Key"] = "false";
         //    }
-          
+
 
         //    return View("Detalle", evento);
         //}
-        //public IActionResult Detalle(int id)
-        //{
-        //    Evento e = new Evento();
-        //    List<Evento> list = e.ListarEventos();
-            
-        //    e= list.Where(x => x.id == id).FirstOrDefault();
+        public IActionResult Detalle(int id)
+        {
+            Evento e = new Evento();
+            List<Evento> list = _DbContext.Eventos.Include(p => p.Autor).ThenInclude(a => a.Nacionalidad)
+                .Include(p => p.Sala).Include(p => p.Tipo).ToList();
 
-        //    return View("Detalle",e);
-        //}
-        //public IActionResult EventosABM()
-        //{
+            e = list.Where(x => x.Id == id).FirstOrDefault();
 
-        //    Evento E = new Evento();
-        //    IEnumerable<Evento> listaEventos = E.ListarEventos();
+            return View("Detalle", e);
+        }
+        public IActionResult EventosABM()
+        {
 
-        //    return View(listaEventos);
-        //}
+            Evento E = new Evento();
+            IEnumerable<Evento> listaEventos = _DbContext.Eventos.Include(p => p.Autor).ThenInclude(a => a.Nacionalidad)
+                .Include(p => p.Sala).Include(p => p.Tipo).ToList();
+
+            return View(listaEventos);
+        }
 
 
         public IActionResult Index()
@@ -156,5 +233,168 @@ namespace TpDiPaolantonioPWA.Controllers
 
 
         }
+
+
+        [HttpGet]
+
+        public IActionResult modificar(int id_e)
+        {
+            List<Evento> listadoGeneral = _DbContext.Eventos.Include(p => p.Autor).ThenInclude(a => a.Nacionalidad)
+                .Include(p => p.Sala).Include(p => p.Tipo).ToList();
+
+            
+
+            _EventoVM e = new _EventoVM()
+            {
+                Autor = _DbContext.Autors
+                    .Select(a => new SelectListItem
+                    {
+                        Value = a.Id.ToString(),
+                        Text = a.Nombre
+
+                    }).ToList(),
+
+                Tipo = _DbContext.TipoEventos
+                    .Select(a => new SelectListItem
+                    {
+                        Value = a.Id.ToString(),
+                        Text = a.Tipo
+
+                    }).ToList(),
+                Sala = _DbContext.Salas
+                    .Select(a => new SelectListItem
+                    {
+                        Value = a.Id.ToString(),
+                        Text = a.NombreSala
+
+                    }).ToList(),
+
+            };
+
+
+            e.oEvento = listadoGeneral.FirstOrDefault(x => x.Id == id_e);
+
+            return View("EventosModificar", e);
+        }
+
+        [HttpPost]
+        public IActionResult modificarEvento(_EventoVM e) 
+        {
+            string NombreArchivo = UpLoadFile(e);
+
+            Evento evento = new Evento()
+            {
+                Id = e.oEvento.Id,
+                NombreEvento = e.oEvento.NombreEvento,
+                FechaInicio = e.oEvento.FechaInicio,
+                FechaFin = e.oEvento.FechaFin,
+                Tipo = e.oEvento.Tipo,
+                Sala = e.oEvento.Sala,
+                AutorId = e.oEvento.AutorId,
+                Descripcion = e.oEvento.Descripcion,
+                DescripcionDetalle = e.oEvento.DescripcionDetalle,
+                Portada = NombreArchivo,
+                TipoId = e.oEvento.TipoId,
+                SalaId = e.oEvento.SalaId,
+                Valor = e.oEvento.Valor,
+
+            };
+            _DbContext.Eventos.Update(evento);
+            _DbContext.SaveChanges();
+
+            List<Evento> listaEventos = _DbContext.Eventos.Include(p => p.Autor).ThenInclude(a => a.Nacionalidad)
+                .Include(p => p.Sala).Include(p => p.Tipo).ToList();
+
+            _Evento_Tipos listaEnvio = new _Evento_Tipos();
+            listaEnvio._e = listaEventos;
+            listaEnvio._t = _DbContext.TipoEventos.ToList();
+
+            return View("Index", listaEnvio);
+
+
+            
+        
+        }
+
+        [HttpPost]
+        public IActionResult EliminarEvento(_EventoVM e)
+        {
+           
+
+            Evento evento = new Evento()
+            {
+                Id = e.oEvento.Id,
+                NombreEvento = e.oEvento.NombreEvento,
+                FechaInicio = e.oEvento.FechaInicio,
+                FechaFin = e.oEvento.FechaFin,
+                Tipo = e.oEvento.Tipo,
+                Sala = e.oEvento.Sala,
+                AutorId = e.oEvento.AutorId,
+                Descripcion = e.oEvento.Descripcion,
+                DescripcionDetalle = e.oEvento.DescripcionDetalle,
+                //Portada = NombreArchivo,
+                TipoId = e.oEvento.TipoId,
+                SalaId = e.oEvento.SalaId,
+                Valor = e.oEvento.Valor,
+
+            };
+            _DbContext.Eventos.Remove(evento);
+            _DbContext.SaveChanges();
+
+            List<Evento> listaEventos = _DbContext.Eventos.Include(p => p.Autor).ThenInclude(a => a.Nacionalidad)
+                .Include(p => p.Sala).Include(p => p.Tipo).ToList();
+
+            _Evento_Tipos listaEnvio = new _Evento_Tipos();
+            listaEnvio._e = listaEventos;
+            listaEnvio._t = _DbContext.TipoEventos.ToList();
+
+            return View("Index", listaEnvio);
+
+
+
+
+        }
+
+        public IActionResult Eliminar(int id_e)
+        {
+            List<Evento> listadoGeneral = _DbContext.Eventos.Include(p => p.Autor).ThenInclude(a => a.Nacionalidad)
+                .Include(p => p.Sala).Include(p => p.Tipo).ToList();
+
+
+
+            _EventoVM e = new _EventoVM()
+            {
+                Autor = _DbContext.Autors
+                    .Select(a => new SelectListItem
+                    {
+                        Value = a.Id.ToString(),
+                        Text = a.Nombre
+
+                    }).ToList(),
+
+                Tipo = _DbContext.TipoEventos
+                    .Select(a => new SelectListItem
+                    {
+                        Value = a.Id.ToString(),
+                        Text = a.Tipo
+
+                    }).ToList(),
+                Sala = _DbContext.Salas
+                    .Select(a => new SelectListItem
+                    {
+                        Value = a.Id.ToString(),
+                        Text = a.NombreSala
+
+                    }).ToList(),
+
+            };
+
+
+            e.oEvento = listadoGeneral.FirstOrDefault(x => x.Id == id_e);
+
+            return View("EventosEliminar", e);
+        }
+
+
     }
 }

@@ -145,7 +145,7 @@
                         <h3 class="card-title fw-bold">@e.NombreEvento</h3>
                         <h4 class="card-title fw-bold">@e.Autor.Apellido</h4>
 
-                        <img src="@e.Portada" class="card-img-top" alt="Alternate Text" />
+                    <img src="@Url.Content("~/img/Eventos/" + @e.Portada)" class="card-img-top" alt="Alternate Text" />
 
                         <div class="card-body">
                             <h5 class="card-title fw-bold">@e.Tipo.Tipo</h5>

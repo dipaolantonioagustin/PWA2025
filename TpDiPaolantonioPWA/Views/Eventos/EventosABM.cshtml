@@ -25,7 +25,7 @@
         </div>
     }
 
-@model IEnumerable<_Eventos>
+@model IEnumerable<Evento>
 
 <div class="container-fluid mb-5 pb-5 ">
     <div class="container-fluid py-0 my-0">
@@ -46,7 +46,7 @@
                             <th>Fecha Inicio</th>
                             <th>Fecha Fin</th>
                             <th>Precio Ticket</th>
-                            <th>Foro</th>
+                           @*  <th>Foro</th> *@
                             <th>Tipo</th>
                             <th>Autor</th>
                         </tr>
@@ -56,22 +56,18 @@
                             {
                              <form asp-controller="Eventos" asp-action="Procesos">
                                 <tr>
-                                    <td>@e.name</td>
-                                    <td>@e.fechaInicio.ToString("dd/MM/yyyy")</td>
-                                    <td>@e.fechaFin.ToString("dd/MM/yyyy")</td>
-                                    <td>@e.valor</td>
-                                    <td>@e.foro</td>
-                                    <td>@e.tipo</td>
-                                    <td>@e.autor</td>
-                                    <td>
-                                       
-                                        
+                                    <td>@e.NombreEvento</td>
+                                    <td>@e.FechaInicio.ToString("dd/MM/yyyy")</td>
+                                    <td>@e.FechaFin.ToString("dd/MM/yyyy")</td>
+                                    <td>@e.Valor</td>
+                                    @* <td>@e.foro</td> *@
+                                    <td>@e.Tipo.Tipo</td>
+                                    <td>@e.Autor.Nombre @e.Autor.Apellido</td>
                                     
-                                    
-                                    </td>
-
-                                
-
+                                     <td>
+                                        <a class="btn btn-primary" asp-controller="Eventos" asp-action="modificar" asp-route-id_e="@e.Id">Modificar</a>
+                                    <a class="btn btn-danger" asp-controller="Eventos" asp-action="Eliminar" asp-route-id_e="@e.Id">Eliminar</a>
+                                     </td>  
                                 </tr>
                             </form>
                             }

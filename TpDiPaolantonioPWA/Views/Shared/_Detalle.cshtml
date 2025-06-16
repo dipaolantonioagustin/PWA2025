@@ -4,18 +4,18 @@
 @{
 }
 
-@model _Eventos
+@model Evento
 <div class="container-fluid p-2">
 
     <div class="card mb-3">
-        <div class="card-header fw-bold">@Model.name</div>
-        <img src="@Model.portada" class="card-img-top" alt="Alternate Text" />
+        <div class="card-header fw-bold">@Model.NombreEvento</div>
+        <img src="@Url.Content("~/img/Eventos/" + @Model.Portada)" class="card-img-top" alt="Alternate Text" />
         <div class="card-body mb-2">
-            <p><strong>Fecha:</strong> @Model.fechaInicio.ToString("dd/MM/yyyy")</p>
-            <p><strong>Fecha:</strong> @Model.fechaFin.ToString("dd/MM/yyyy")</p>
-            <p><strong>Descripción:</strong> @Model.description</p>
-            <p><strong>Ubicación:</strong> @Model.foro</p>
-            <p><strong>Ubicación:</strong> @Model.DescripcionDetallada</p>
+            <p><strong>Fecha:</strong> @Model.FechaInicio.ToString("dd/MM/yyyy")</p>
+            <p><strong>Fecha:</strong> @Model.FechaFin.ToString("dd/MM/yyyy")</p>
+            <p><strong>Descripción:</strong> @Model.Descripcion</p>
+            @* <p><strong>Ubicación:</strong> @Model.</p> *@
+            <p><strong>Ubicación:</strong> @Model.DescripcionDetalle</p>
         </div>
     </div>
 

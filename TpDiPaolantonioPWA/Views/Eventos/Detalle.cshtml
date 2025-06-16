@@ -9,7 +9,7 @@
     
 }
 
-@model _Eventos
+@model TpDiPaolantonioPWA.DAL.Evento
 
 @if (Mensaje != null && Resultado == "true")
 {
@@ -29,12 +29,12 @@ else if (Mensaje != null && Resultado == "false")
     </div>
 }
 
-<h2>@Model.autor</h2>
+<h2>@Model.Autor</h2>
 
 @Html.Partial("_Detalle", Model)
 
 <form asp-controller="Eventos" asp-action="Agregar" method="post">
-    <input type="hidden" name="e" value=@Model.id />
+    <input type="hidden" name="e" value=@Model.Id />
     <div class="mb-2">
         <label for="cantidad">Cantidad de tickets:</label>
         <input type="number" name="cantidad" value="1" min="1" class="form-control" />
