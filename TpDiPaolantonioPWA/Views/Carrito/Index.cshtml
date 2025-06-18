@@ -2,7 +2,7 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 
-@model _Carrito
+@model _Tickets_Eventos
 
 @{
 }
@@ -33,26 +33,27 @@
                         </tr>
 
                     <tbody>
-                            @foreach (var ticket in Model.tickets)
-                            {
-                            <tr>
-                                <td>@ticket.evento_ticket.name</td>
-                                <td>@ticket.fecha.ToString("dd/MM/yyyy")</td>
-                                <td>@ticket.evento_ticket.valor</td>
-                                <td>@ticket.cantidad</td>
-                                <td>@ticket.TotalEntradas()</td>
-                                <td>
-                                    <button type="button" class="btn btn-danger">Eliminar</button>
+                           @if(Model.listaTickets != null){
+                               @foreach (var ticket in Model.listaTickets)
+                                {
+                                <tr>
+                                    <td>@ticket.IdEventoNavigation.NombreEvento</td>
+                                    <td>@ticket.IdEventoNavigation.FechaInicio.ToString("dd/MM/yyyy")</td>
+                                    <td>@ticket.IdEventoNavigation.Valor</td>
+                                    <td>@ticket.CantEntradas</td>
+                                    <td></td>
+                                    <td>
+                                        <button type="button" class="btn btn-danger">Eliminar</button>
 
-                                </td>
-                            </tr>
+                                    </td>
+                                </tr>
+                                }
                             }
-
                             <td></td>
                             <td></td>
                             <td></td>
                             <td>Total:</td>
-                            <td>@Model.sumarEntradas()</td>
+                            <td></td>
                             <td></td>
                     </tbody>
 

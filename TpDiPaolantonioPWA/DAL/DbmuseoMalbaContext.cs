@@ -53,7 +53,7 @@ public partial class DbmuseoMalbaContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("nombre");
 
-            entity.HasOne(d => d.Nacionalidad).WithMany(p => p.Autors)
+            entity.HasOne(d => d.Nacionalidad).WithMany(/*p => p.Autors*/)
                 .HasForeignKey(d => d.NacionalidadId)
                 .HasConstraintName("FK_autor_pais");
         });
@@ -86,17 +86,17 @@ public partial class DbmuseoMalbaContext : DbContext
             entity.Property(e => e.TipoId).HasColumnName("tipo_id");
             entity.Property(e => e.Valor).HasColumnName("valor");
 
-            entity.HasOne(d => d.Autor).WithMany(p => p.Eventos)
+            entity.HasOne(d => d.Autor).WithMany()
                 .HasForeignKey(d => d.AutorId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_evento_autor");
 
-            entity.HasOne(d => d.Sala).WithMany(p => p.Eventos)
+            entity.HasOne(d => d.Sala).WithMany(/*p => p.Eventos*/)
                 .HasForeignKey(d => d.SalaId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_evento_sala");
 
-            entity.HasOne(d => d.Tipo).WithMany(p => p.Eventos)
+            entity.HasOne(d => d.Tipo).WithMany(/*p => p.Eventos*/)
                 .HasForeignKey(d => d.TipoId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_evento_tipo_evento");

@@ -9,5 +9,5 @@ public partial class Pai
 
     public string Nombre { get; set; } = null!;
 
-    public virtual ICollection<Autor> Autors { get; set; } = new List<Autor>();
+   // public virtual ICollection<Autor> Autors { get; set; } = new List<Autor>();
 }

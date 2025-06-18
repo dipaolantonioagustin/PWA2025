@@ -9,5 +9,5 @@ public partial class Sala
 
     public string NombreSala { get; set; } = null!;
 
-    public virtual ICollection<Evento> Eventos { get; set; } = new List<Evento>();
+   // public virtual ICollection<Evento> Eventos { get; set; } = new List<Evento>();
 }

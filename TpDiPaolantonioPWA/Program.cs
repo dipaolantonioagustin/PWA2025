@@ -4,13 +4,14 @@ using Microsoft.EntityFrameworkCore;
 
     var builder = WebApplication.CreateBuilder(args);
 
-    // Add services to the container.
-    builder.Services.AddControllersWithViews();
+// Add services to the container.
+    builder.Services.AddControllersWithViews(); 
 
     builder.Services.AddDbContext<DbmuseoMalbaContext>(options =>
           options.UseSqlServer(builder.Configuration.GetConnectionString("ConexionSQL"))
           );
 
+    builder.Services.AddSession();
 
     var app = builder.Build();
 
@@ -19,6 +20,9 @@ using Microsoft.EntityFrameworkCore;
     {
         app.UseExceptionHandler("/Home/Error");
     }
+
+    app.UseSession();
+
     app.UseStaticFiles();
 
     app.UseRouting();
@@ -27,7 +31,7 @@ using Microsoft.EntityFrameworkCore;
 
     app.MapControllerRoute(
         name: "default",
-        pattern: "{controller=Eventos}/{action=EventosABM}/{id?}");
+        pattern: "{controller=Eventos}/{action=Index}/{id?}");
 
     app.Run();
 

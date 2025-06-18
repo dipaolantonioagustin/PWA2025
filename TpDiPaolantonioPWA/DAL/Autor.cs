@@ -13,7 +13,7 @@ public partial class Autor
 
     public int? NacionalidadId { get; set; }
 
-    public virtual ICollection<Evento> Eventos { get; set; } = new List<Evento>();
+   // public virtual ICollection<Evento> Eventos { get; set; } = new List<Evento>();
 
     public virtual Pai? Nacionalidad { get; set; }
 

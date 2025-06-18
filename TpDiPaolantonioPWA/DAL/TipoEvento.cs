@@ -9,5 +9,5 @@ public partial class TipoEvento
 
     public string Tipo { get; set; } = null!;
 
-    public virtual ICollection<Evento> Eventos { get; set; } = new List<Evento>();
+   // public virtual ICollection<Evento> Eventos { get; set; } = new List<Evento>();
 }
