@@ -22,32 +22,13 @@ namespace TpDiPaolantonioPWA.Controllers
         }
         public IActionResult Index()
         {
-            listadoCompra = Helpers.sesionHelpers.GetObjectFromJson<List<Ticket>>(HttpContext.Session, "tk");
+            listadoCompra = Helpers.sesionHelpers.GetObjectFromJson<List<Ticket>>(HttpContext.Session, "carrito");
             evento = _DbContext.Eventos.Include(a => a.Autor).ThenInclude(a=>a.Nacionalidad).Include(a=> a.Sala).Include(a=>a.Tipo).ToList();
 
             _Tickets_Eventos listado = new _Tickets_Eventos();
             listado.listaTickets = listadoCompra;
             listado.listaEvento = evento;
-
-
-            //foreach (Ticket ticket in listadoCompra) {
-
-            //    ticket.IdEventoNavigation = evento.FirstOrDefault<Evento>(ticket.IdEvento);  
-            
-            
-            //}
-
-            //_Eventos evento = new _Eventos();
-            //List<_Eventos> listadoEventos = evento.ListarEventos();
-
-            //List<_Ticket> ticketList = new List<_Ticket>();
-
-            //ticketList.Add(new _Ticket { evento_ticket = listadoEventos[0], cantidad = 2, Id = 1 });
-            //ticketList.Add(new _Ticket { evento_ticket = listadoEventos[3], cantidad = 4, Id = 2 });
-            //ticketList.Add(new _Ticket { evento_ticket = listadoEventos[1], cantidad = 1, Id = 3 });
-            //_Carrito carrito = new _Carrito();
-            //carrito.tickets = ticketList;
-
+                                    
             return View("Index", listado);
         }
 
