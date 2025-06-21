@@ -34,7 +34,7 @@ else if (Mensaje != null && Resultado == "false")
 @Html.Partial("_Detalle", Model)
 
 <form asp-controller="Carrito" asp-action="AgregarTicket" method="post">
-    <input type="hidden" name="id" value=@Model.Id />
+    <input type="hidden" name="id" value="@Model.Id" />
     <div class="mb-2">
         <label for="cantidad">Cantidad de tickets:</label>
         <input type="number" name="cant" value="1" min="1" class="form-control" />

@@ -1,10 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TpDiPaolantonioPWA.Models;
+using TpDiPaolantonioPWA.DAL;
+using TpDiPaolantonioPWA.Helpers;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace TpDiPaolantonioPWA.Controllers
 {
     public class TicketsController : Controller
     {
+        private readonly DbmuseoMalbaContext _DbContext;
+        public TicketsController(DbmuseoMalbaContext _context)
+        {
+            _DbContext = _context;
+        }
         public IActionResult Index()
         {
             _Eventos evento = new _Eventos();
@@ -13,7 +22,77 @@ namespace TpDiPaolantonioPWA.Controllers
             return View(listadoEventos);
         }
 
+        private float CalcularValorTotal(Ticket t)
+        {
+            List<Evento> e = _DbContext.Eventos.ToList();
+            if (e != null)
+            {
+                return (float)(t.CantEntradas * t.IdEventoNavigation.Valor);
+            }
+            else { return 0; }
+            
+        
+        }
 
+
+
+        private void limpiarTicketsSesion() 
+        {
+
+            List<Ticket> listadoLimpio = new List<Ticket>();
+        
+            Helpers.sesionHelpers.SetObjectAsJson(HttpContext.Session,"carrito",listadoLimpio);
+        
+        
+        }
+        public IActionResult GuardarTicket()
+        {
+            List<Ticket> listadoTickets = Helpers.sesionHelpers.GetObjectFromJson<List<Ticket>>(HttpContext.Session, "carrito");
+            
+
+            if (listadoTickets != null)
+            {
+               
+                foreach (Ticket t in listadoTickets) 
+                {
+
+                    Ticket ticket = new Ticket()
+                    {
+                        IdEvento = t.IdEvento,
+                        CantEntradas = t.CantEntradas,
+                        ValorTotal = CalcularValorTotal(t)
+
+                    };
+                    
+                    _DbContext.Tickets.Add(ticket);
+
+                }
+                
+                
+                _DbContext.SaveChanges();
+
+                TempData["Mensaje"] = "Se Agregaron los Tickets Correctamente";
+                TempData["verificador"] = "true";
+
+                limpiarTicketsSesion();
+            }
+            else
+            {
+                TempData["Mensaje"] = "No Se Pudo Agregar el Ticket Correctamente";
+                TempData["verificador"] = "false";
+
+            }
+
+            List<Ticket> lista = _DbContext.Tickets.Include(p => p.IdEventoNavigation).ToList();
+
+           
+
+            return RedirectToAction("Index","Carrito", lista);
+        
+        }
 
     }
+
+
+    
 }

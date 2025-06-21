@@ -68,7 +68,7 @@ namespace TpDiPaolantonioPWA.Controllers
 
         public IActionResult EventosAlta()
         {
-            _EventoVM e = new _EventoVM()
+            _EventoVM e = new _EventoVM() //Aca solamente cargo el objeto como la conversion a selectListItem para que en la vista carguen por el tagHelper del Select
             {
                 Autor = _DbContext.Autors
                     .Select(a => new SelectListItem

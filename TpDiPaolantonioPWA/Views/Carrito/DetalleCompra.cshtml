@@ -40,11 +40,11 @@
                             @foreach (var ticket in Model.tickets)
                             {
                             <tr>
-                                <td>@ticket.evento_ticket.name</td>
-                                <td>@ticket.fecha.ToString("dd/MM/yyyy")</td>
-                                <td>@ticket.evento_ticket.valor</td>
-                                <td>@ticket.cantidad</td>
-                                <td>@ticket.TotalEntradas()</td>
+                                <td>@ticket.IdEventoNavigation.NombreEvento</td>
+                                <td>@ticket.IdEventoNavigation.FechaInicio.ToString("dd/MM/yyyy")</td>
+                                <td>@ticket.IdEventoNavigation.Valor</td>
+                                <td>@ticket.CantEntradas</td>
+                                <td>@ticket.ValorTotal</td>
                                
                             </tr>
                             }
@@ -122,11 +122,17 @@
             <div class="col-12 d-flex justify-content-between">
 
                 <a type="button" class="btn btn-info fw-bold ancho_botones_CompraDetalle" asp-area="" asp-controller="Carrito" asp-action="Index">Volver</a>
-                <a type="button" class="btn btn-warning fw-bold ancho_botones_CompraDetalle" asp-area="" asp-controller="Carrito" asp-action="ConfirmarCompra">Continuar</a>
+              
+                <form asp-controller="Carrito" asp-action="ConfirmarCompra" method="post">
+
+                    <button type="submit" class="btn btn-warning fw-bold ancho_botones_CompraDetalle" asp-area="" asp-controller="Carrito" asp-action="ConfirmarCompra" name="valor" value="@Model.CalculadorTotal()">Continuar</button>
+               
+               </form>
+                
 
             </div>
 
-
+            
 
         </div>
 

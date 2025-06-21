@@ -162,9 +162,10 @@ public partial class DbmuseoMalbaContext : DbContext
 
         modelBuilder.Entity<Ticket>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToTable("ticket");
+            entity.HasKey(e => e.Id); // ✅ Declarás que Id es la clave primaria
+            entity.ToTable("ticket");
+
+            entity.Property(e => e.Id).HasColumnName("id");
 
             entity.Property(e => e.CantEntradas).HasColumnName("cant_entradas");
             entity.Property(e => e.Id)
@@ -177,6 +178,9 @@ public partial class DbmuseoMalbaContext : DbContext
                 .HasForeignKey(d => d.IdEvento)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_ticket_evento1");
+
+            entity.Ignore(e => e.TempId);
+
         });
 
         modelBuilder.Entity<TipoEvento>(entity =>

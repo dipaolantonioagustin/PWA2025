@@ -31,8 +31,48 @@ namespace TpDiPaolantonioPWA.Controllers
                                     
             return View("Index", listado);
         }
+        
+        
+        [HttpPost]
+        public IActionResult EliminarTicket(int id)
+        {
+            evento = _DbContext.Eventos.Include(a => a.Autor).ThenInclude(a => a.Nacionalidad).Include(a => a.Sala).Include(a => a.Tipo).ToList();
+            var listadoCarrito = Helpers.sesionHelpers.GetObjectFromJson<List<Ticket>>(HttpContext.Session, "carrito");
+            
+            _Tickets_Eventos listado = new _Tickets_Eventos();
+            
+            listado.listaEvento = evento;
+
+        
+
+            Ticket ticket = listadoCarrito.FirstOrDefault(x => x.TempId == id);
+
+           
+
+            if (ticket == null)
+            {
+                listado.listaTickets = listadoCarrito;
+                return View("Index", listado);
+
+            }
+            else 
+            {
+
+                listadoCarrito.Remove(ticket);
+
+                listado.listaTickets = listadoCarrito;
+
+                Helpers.sesionHelpers.SetObjectAsJson(HttpContext.Session, "carrito", listadoCarrito);
+          
+
+                return View("Index", listado);
+
+            }
 
 
+           
+        
+        }
 
 
         private int Exist(List<Ticket> ticketsListado, int id)
@@ -67,11 +107,12 @@ namespace TpDiPaolantonioPWA.Controllers
                 List<Ticket> carrito = new List<Ticket>();
                 carrito.Add(new Ticket()
                 {
-                    IdEvento=e.Id,
-                    CantEntradas=cant,
+                    TempId = 1,
+                    IdEvento = e.Id,
+                    CantEntradas = cant,
                     IdEventoNavigation = e,
-                    ValorTotal = e.Valor*cant,
-                   
+                    ValorTotal = e.Valor * cant,
+
 
                 });
 
@@ -87,6 +128,7 @@ namespace TpDiPaolantonioPWA.Controllers
                 {
                     listadoCarrito.Add(new Ticket()
                     {
+                        TempId= listadoCarrito.Count + 1,
                         IdEvento = e.Id,
                         CantEntradas = cant,
                         IdEventoNavigation = e,
@@ -139,45 +181,38 @@ namespace TpDiPaolantonioPWA.Controllers
 
         public IActionResult DetalleCompra()
         {
-
-            _Eventos evento = new _Eventos();
-            List<_Eventos> listadoEventos = evento.ListarEventos();
-
-            List<_Ticket> ticketList = new List<_Ticket>();
-
-            ticketList.Add(new _Ticket { evento_ticket = listadoEventos[0], cantidad = 2, Id = 1 });
-            ticketList.Add(new _Ticket { evento_ticket = listadoEventos[3], cantidad = 4, Id = 2 });
-            ticketList.Add(new _Ticket { evento_ticket = listadoEventos[1], cantidad = 1, Id = 3 });
+                     
+            List<Evento> listadoEventos = _DbContext.Eventos.ToList();
+            List<Ticket> ticketList = Helpers.sesionHelpers.GetObjectFromJson<List<Ticket>>(HttpContext.Session,"carrito");
+                       
             _Carrito carrito = new _Carrito();
             carrito.tickets = ticketList;
             carrito.CalcularGastosOperativos();
             return View("DetalleCompra", carrito);
+
         }
 
 
-        public IActionResult ConfirmarCompra(_Carrito c) {
+        public IActionResult ConfirmarCompra(float valor)
+        {
 
-            _Eventos evento = new _Eventos();
-            List<_Eventos> listadoEventos = evento.ListarEventos();
+            return View("ConfirmarCompra", valor);
 
-            List<_Ticket> ticketList = new List<_Ticket>();
 
-            ticketList.Add(new _Ticket { evento_ticket = listadoEventos[0], cantidad = 2, Id = 1 });
-            ticketList.Add(new _Ticket { evento_ticket = listadoEventos[3], cantidad = 4, Id = 2 });
-            ticketList.Add(new _Ticket { evento_ticket = listadoEventos[1], cantidad = 1, Id = 3 });
-            _Carrito carrito = new _Carrito();
-            carrito.tickets = ticketList;
-            carrito.CalcularGastosOperativos();
-
-            return View("ConfirmarCompra", carrito);
         }
 
         public IActionResult FinalizaCompra(string medioPago, string tarjetaEmpresa, int numeroTarjeta, int clave)
         {
             if(clave == 4455)
             {
-                TempData["Mensaje"] = "Felicitaciones !!! Compra Aprobada";
-                TempData["Estado"] = "Exitosa";
+
+
+                return RedirectToAction("GuardarTicket", "Tickets");
+
+
+
+                //TempData["Mensaje"] = "Felicitaciones !!! Compra Aprobada";
+                //TempData["Estado"] = "Exitosa";
             }
             else
             {

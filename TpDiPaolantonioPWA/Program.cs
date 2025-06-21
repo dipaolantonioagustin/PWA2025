@@ -31,7 +31,7 @@ using Microsoft.EntityFrameworkCore;
 
     app.MapControllerRoute(
         name: "default",
-        pattern: "{controller=Carrito}/{action=Index}/{id?}");
+        pattern: "{controller=Eventos}/{action=Index}/{id?}");
 
     app.Run();
 
