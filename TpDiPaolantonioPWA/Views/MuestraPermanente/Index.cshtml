@@ -24,9 +24,9 @@
         {
             <div class="card col-12 col-md-3 rounded-2 my-3 my-md-3 mx-md-1" style="border-radius: 15px 0 0 15px; box-shadow: 0 5px 5px 0 gray">
                 <h3 class="card-title fw-bold">@e.NombreObra</h3>
-                <h4 class="card-title fw-bold">@e.</h4>
+                    <h4 class="card-title fw-bold">@e.IdAutorNavigation.Apellido @e.IdAutorNavigation.Nombre</h4>
 
-                <img src="@e.ImagenObra" class="card-img-top" alt="Alternate Text" />
+                    <img src="@Url.Content("~/img/ColeccionPermanente/" + @e.ImagenObra)" class="card-img-top" alt="Alternate Text" />
 
                 <div class="card-body">
                     

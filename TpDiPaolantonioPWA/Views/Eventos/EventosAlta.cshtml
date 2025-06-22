@@ -16,25 +16,30 @@
                         <div class="mb-3">
                             <label asp-for="oEvento.NombreEvento" class="form-label">Nombre del Evento</label>
                             <input asp-for="oEvento.NombreEvento" class="form-control" required />
+                            <span asp-validation-for="oEvento.NombreEvento" class="text-danger"></span>
                         </div>
 
                         <div class="mb-3">
                             <label asp-for="oEvento.Descripcion" class="form-label">Descripción</label>
                             <textarea asp-for="oEvento.Descripcion" class="form-control" rows="1" required></textarea>
+                            <span asp-validation-for="oEvento.Descripcion" class="text-danger"></span>
                         </div>
                         <div class="mb-3">
                             <label asp-for="oEvento.DescripcionDetalle" class="form-label">Descripción Detalle</label>
                             <textarea asp-for="oEvento.DescripcionDetalle" class="form-control" rows="5" required></textarea>
+                            <span asp-validation-for="oEvento.DescripcionDetalle" class="text-danger"></span>
                         </div>
 
                         <div class="mb-3">
                             <label asp-for="oEvento.FechaInicio" class="form-label">Fecha de Inicio</label>
                             <input asp-for="oEvento.FechaInicio" type="date" class="form-control" required />
+                            <span asp-validation-for="oEvento.FechaInicio" class="text-danger"></span>
                         </div>
 
                         <div class="mb-3">
                             <label asp-for="oEvento.FechaFin" class="form-label">Fecha de Fin</label>
                             <input asp-for="oEvento.FechaFin" type="date" class="form-control" required />
+                            <span asp-validation-for="oEvento.FechaFin" class="text-danger"></span>
                         </div>
 
                         <div class="mb-3">
@@ -42,6 +47,7 @@
                             <select asp-items="@Model.Sala.ToList()" asp-for="oEvento.SalaId" class="form-control" required >
                             <option>----Sala----</option>
                             </select>
+                            <span asp-validation-for="oEvento.SalaId" class="text-danger"></span>
                         </div>
 
                         <div class="mb-3">
@@ -49,12 +55,13 @@
                             <select asp-items ="@Model.Autor.ToList()" asp-for="oEvento.AutorId" class="form-control" required >
                                 <option >----Autor----</option>
                             </select>
-  
+                            <span asp-validation-for="oEvento.AutorId" class="text-danger"></span>
                         </div>
 
                         <div class="mb-3">
                             <label asp-for="fotoEvento" class="form-label">Foto Portada</label>
                             <input asp-for="@Model.fotoEvento" type="file" class="form-control" required />
+                            <span asp-validation-for="oEvento.Portada" class="text-danger"></span>
                         </div>
 
 
@@ -62,14 +69,15 @@
                             <label asp-for="oEvento.Tipo" class="form-label">Tipo</label>
                             <select asp-items="@Model.Tipo.ToList()" asp-for="oEvento.TipoId" class="form-control" required >
                             <option>----Tipo----</option>
-                            
+                            </select>
 
-                           </select>
+                            <span asp-validation-for="oEvento.TipoId" class="text-danger"></span>
                         </div>
 
                         <div class="mb-3">
                             <label asp-for="oEvento.Valor" class="form-label">Valor ($)</label>
                             <input asp-for="oEvento.Valor" type="number" step="0.01" class="form-control" required />
+                            <span asp-validation-for="oEvento.Valor" class="text-danger"></span>
                         </div>
 
                         <div class="d-grid">
@@ -82,3 +90,10 @@
         </div>
     </div>
 </div>
+
+@section Scripts 
+{
+
+    <partial name="_ValidationScriptsPartial" />
+
+}

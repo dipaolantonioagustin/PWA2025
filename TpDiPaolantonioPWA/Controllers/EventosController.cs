@@ -121,29 +121,7 @@ namespace TpDiPaolantonioPWA.Controllers
             return nombreArchivo;
         }
 
-        // [HttpPost]
-        //public IActionResult AgregarTickets(int cantidad, int e)
-        //{
-        //    Evento evento = new Evento();
-        //    List<Evento> listaEventos = evento.ListarEventos();
-
-        //    evento = listaEventos.Where(x => x.id == e).FirstOrDefault();
-
-
-        //    if (cantidad >= 1)
-        //    {
-        //        TempData["Mensaje"] = "Se han Agregado los Tickets a su Carrito";
-        //        TempData["Key"] = "true";
-        //    }
-        //    else if (cantidad < 1)
-        //    {
-        //        TempData["Mensaje"] = "El Número de Tickets no Puede ser Menor a 1";
-        //        TempData["Key"] = "false";
-        //    }
-
-
-        //    return View("Detalle", evento);
-        //}
+       
         public IActionResult Detalle(int id)
         {
             Evento e = new Evento();
@@ -280,26 +258,40 @@ namespace TpDiPaolantonioPWA.Controllers
         [HttpPost]
         public IActionResult modificarEvento(_EventoVM e) 
         {
-            string NombreArchivo = UpLoadFile(e);
+            List<Evento> listaEventosAnterior = _DbContext.Eventos.Include(p => p.Autor).ThenInclude(a => a.Nacionalidad)
+                 .Include(p => p.Sala).Include(p => p.Tipo).ToList();
 
-            Evento evento = new Evento()
+            Evento EventoModificar = listaEventosAnterior.FirstOrDefault(x => x.Id == e.oEvento.Id);
+
+
+           // EventoModificar.Id = e.oEvento.Id;
+            EventoModificar.NombreEvento = e.oEvento.NombreEvento;
+            EventoModificar.FechaInicio = e.oEvento.FechaInicio;
+            EventoModificar.FechaFin = e.oEvento.FechaFin;
+            //EventoModificar.Tipo = e.oEvento.Tipo;
+            //EventoModificar.Sala = e.oEvento.Sala;
+            EventoModificar.AutorId = e.oEvento.AutorId;
+            EventoModificar.Descripcion = e.oEvento.Descripcion;
+            EventoModificar.DescripcionDetalle = e.oEvento.DescripcionDetalle;
+
+            EventoModificar.TipoId = e.oEvento.TipoId;
+            EventoModificar.SalaId = e.oEvento.SalaId;
+            EventoModificar.Valor = e.oEvento.Valor;
+
+
+            if (e.fotoEvento != null)
             {
-                Id = e.oEvento.Id,
-                NombreEvento = e.oEvento.NombreEvento,
-                FechaInicio = e.oEvento.FechaInicio,
-                FechaFin = e.oEvento.FechaFin,
-                Tipo = e.oEvento.Tipo,
-                Sala = e.oEvento.Sala,
-                AutorId = e.oEvento.AutorId,
-                Descripcion = e.oEvento.Descripcion,
-                DescripcionDetalle = e.oEvento.DescripcionDetalle,
-                Portada = NombreArchivo,
-                TipoId = e.oEvento.TipoId,
-                SalaId = e.oEvento.SalaId,
-                Valor = e.oEvento.Valor,
 
-            };
-            _DbContext.Eventos.Update(evento);
+                string NombreArchivo = UpLoadFile(e);
+                EventoModificar.Portada = NombreArchivo;
+
+            }
+            else
+            {
+                EventoModificar.Portada = e.oEvento.Portada;
+
+            }
+            _DbContext.Eventos.Update(EventoModificar);
             _DbContext.SaveChanges();
 
             List<Evento> listaEventos = _DbContext.Eventos.Include(p => p.Autor).ThenInclude(a => a.Nacionalidad)

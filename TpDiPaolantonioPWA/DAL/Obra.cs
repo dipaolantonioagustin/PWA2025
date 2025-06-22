@@ -11,7 +11,7 @@ public partial class Obra
 
     public DateOnly FechaObra { get; set; }
 
-    public byte[] ImagenObra { get; set; } = null!;
+    public string ImagenObra { get; set; } = null!;
 
     public int IdAutor { get; set; }
 
