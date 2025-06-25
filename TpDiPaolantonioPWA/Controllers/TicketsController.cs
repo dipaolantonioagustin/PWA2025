@@ -34,15 +34,34 @@ namespace TpDiPaolantonioPWA.Controllers
         
         }
 
-        public IActionResult TicketsUsuario() 
+        public IActionResult TicketsUsuario(int pg=1) 
         {
             _TicketsUsuario t = new _TicketsUsuario() {
 
-                listadoTickets = _DbContext.Tickets.Include(t => t.IdEventoNavigation).ToList(),
+                
                 usuario = Helpers.sesionHelpers.GetObjectFromJson<Usuario>(HttpContext.Session, "Usuario")
 
 
             };
+
+            List<Ticket> listadoTickets = _DbContext.Tickets.Include(t => t.IdEventoNavigation).ToList();
+
+            const int TamanioPagina = 5;
+
+            pg = (pg < 1) ? 1: pg;
+            
+            int tamanioListado = listadoTickets.Count;
+
+            var pager = new Pager(tamanioListado, pg, TamanioPagina);
+
+            int salto = (pg-1)* TamanioPagina;
+
+            var listaFinal = listadoTickets.Skip(salto).Take(pager.PaginaTamanio).ToList();
+
+            ViewBag.Pager = pager;
+
+            t.listadoTickets = listaFinal;
+
                    
             return View(t);
         
@@ -100,7 +119,7 @@ namespace TpDiPaolantonioPWA.Controllers
 
            
 
-            return RedirectToAction("ConfirmarCompra","Carrito", lista);
+            return RedirectToAction("ResultadoCompra","Carrito");
         
         }
 

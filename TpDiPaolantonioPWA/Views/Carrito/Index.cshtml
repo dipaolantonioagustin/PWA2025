@@ -5,7 +5,8 @@
 @model _Tickets_Eventos
 
 @{
-    var validador = TempData["Validador"] as bool?; 
+    var validador = TempData["Validador"] as bool?;
+    var mensaje = TempData["Mensaje"] as string;
 }
 
 @if (validador != null && validador == true)
@@ -20,7 +21,7 @@
 else if (validador != null && validador == false)
 {
     <div class="alert alert-danger">
-        <strong>Ha Habido un Error al Cargar el Ticket</strong> ;
+        <strong>@mensaje</strong> ;
 
 
     </div>

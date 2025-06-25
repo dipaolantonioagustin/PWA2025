@@ -216,11 +216,28 @@ namespace TpDiPaolantonioPWA.Controllers
                      
             List<Evento> listadoEventos = _DbContext.Eventos.ToList();
             List<Ticket> ticketList = Helpers.sesionHelpers.GetObjectFromJson<List<Ticket>>(HttpContext.Session,"carrito");
-                       
-            _Carrito carrito = new _Carrito();
-            carrito.tickets = ticketList;
-            carrito.CalcularGastosOperativos();
-            return View("DetalleCompra", carrito);
+           
+
+            if (ticketList == null)
+            {
+                
+                TempData["Mensaje"] = "No hay Ningun ticket Cargado en el Carrito, No puede Continuar";
+                TempData["Validador"] = false;
+
+                return RedirectToAction("Index", "Carrito");
+
+
+            }
+            else 
+            {
+
+                _Carrito carrito = new _Carrito();
+                carrito.tickets = ticketList;
+                carrito.CalcularGastosOperativos();
+                return View("DetalleCompra", carrito); 
+            }    
+            
+           
 
         }
 
@@ -243,13 +260,13 @@ namespace TpDiPaolantonioPWA.Controllers
 
 
 
-                //TempData["Mensaje"] = "Felicitaciones !!! Compra Aprobada";
-                //TempData["Estado"] = "Exitosa";
+                
             }
             else
             {
                 TempData["Mensaje"] = "Algo salio Mal, Compra Denegada";
                 TempData["Validador"] = false;
+                TempData["Estado"] = "Danger";
 
             }
 
