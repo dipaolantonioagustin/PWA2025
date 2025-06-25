@@ -3,7 +3,7 @@ using TpDiPaolantonioPWA.Models;
 
 namespace TpDiPaolantonioPWA.Controllers
 {
-    public class LoguinController : Controller
+    public class LoguinController : BaseController
     {
         public IActionResult Index()
         {

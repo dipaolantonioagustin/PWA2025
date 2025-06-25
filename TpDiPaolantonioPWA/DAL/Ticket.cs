@@ -16,4 +16,8 @@ public partial class Ticket
     public double ValorTotal { get; set; }
 
     public virtual Evento IdEventoNavigation { get; set; } = null!;
+
+    //public int Id_usuario { get; set; }
+
+    //public Usuario Usuario { get; set; }
 }

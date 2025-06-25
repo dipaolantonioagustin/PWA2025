@@ -2,7 +2,7 @@
 
 namespace TpDiPaolantonioPWA.Controllers
 {
-    public class ContactoController : Controller
+    public class ContactoController : BaseController
     {
         public IActionResult Index()
         {

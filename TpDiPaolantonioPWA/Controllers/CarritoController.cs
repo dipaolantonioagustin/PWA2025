@@ -10,7 +10,7 @@ using Microsoft.Extensions.Options;
 
 namespace TpDiPaolantonioPWA.Controllers
 {
-    public class CarritoController : Controller
+    public class CarritoController : BaseController
     {
         public List<Ticket> listadoCompra = new List<Ticket>();
         public List<Evento> evento = new List<Evento>();
@@ -52,7 +52,10 @@ namespace TpDiPaolantonioPWA.Controllers
             if (ticket == null)
             {
                 listado.listaTickets = listadoCarrito;
-                return View("Index", listado);
+
+                TempData["Validador"] = false;
+
+                
 
             }
             else 
@@ -63,15 +66,16 @@ namespace TpDiPaolantonioPWA.Controllers
                 listado.listaTickets = listadoCarrito;
 
                 Helpers.sesionHelpers.SetObjectAsJson(HttpContext.Session, "carrito", listadoCarrito);
-          
+                
+                TempData["Validador"] = true;
 
-                return View("Index", listado);
+               
 
             }
 
 
-           
-        
+            return RedirectToAction("Index", listado);
+
         }
 
 
@@ -79,7 +83,7 @@ namespace TpDiPaolantonioPWA.Controllers
         {
             for (int i = 0; i < ticketsListado.Count; i++) 
             {
-                if (ticketsListado[i].Id.Equals(id))
+                if (ticketsListado[i].IdEvento.Equals(id))
                 {
                     return i;
                 }
@@ -100,6 +104,8 @@ namespace TpDiPaolantonioPWA.Controllers
 
             Evento e = eventos.FirstOrDefault(x => x.Id == id);
 
+            int contadorEntradas = 0;
+
             var listadoCarrito = Helpers.sesionHelpers.GetObjectFromJson<List<Ticket>>(HttpContext.Session, "carrito");
 
             if (listadoCarrito == null) 
@@ -115,6 +121,8 @@ namespace TpDiPaolantonioPWA.Controllers
 
 
                 });
+
+                contadorEntradas = cant;
 
                 Helpers.sesionHelpers.SetObjectAsJson(HttpContext.Session, "carrito", carrito);
 
@@ -136,10 +144,14 @@ namespace TpDiPaolantonioPWA.Controllers
 
 
                     });
+
+                    contadorEntradas = cant;
                 }
                 else
                 {
                     listadoCarrito[index].CantEntradas = listadoCarrito[index].CantEntradas + cant;
+
+                    contadorEntradas = listadoCarrito[index].CantEntradas;
 
                 }
                 
@@ -147,10 +159,30 @@ namespace TpDiPaolantonioPWA.Controllers
 
             }
 
+            TempData["Validador"] = validadorTicketCarga(contadorEntradas,id);
+
             return RedirectToAction("Detalle","Eventos", e);
+
         }
 
 
+
+        private bool validadorTicketCarga(int CantEntradas, int idEvento) 
+        { 
+            List<Ticket> l = Helpers.sesionHelpers.GetObjectFromJson<List<Ticket>>(HttpContext.Session, "carrito");
+
+            Ticket TicketRevisar = l.Where(x => x.IdEvento == idEvento).FirstOrDefault();
+
+            if (TicketRevisar != null && TicketRevisar.CantEntradas == CantEntradas) 
+            {
+                return true;
+
+
+            }
+            else {  return false; }
+
+                           
+        }
 
         [HttpPost]
         public IActionResult CalcularDescuento(string carritoJson, bool socio, float importe)
@@ -217,7 +249,7 @@ namespace TpDiPaolantonioPWA.Controllers
             else
             {
                 TempData["Mensaje"] = "Algo salio Mal, Compra Denegada";
-                TempData["Estado"] = "Denegada";
+                TempData["Validador"] = false;
 
             }
 

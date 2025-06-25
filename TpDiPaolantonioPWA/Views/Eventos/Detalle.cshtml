@@ -4,26 +4,26 @@
 
 @using System.Text.Json
 @{
-    string Resultado = TempData["Key"] as string;
-    string Mensaje = TempData["Mensaje"] as String;
+    
+    var validador = TempData["Validador"] as bool?;
     
 }
 
 @model TpDiPaolantonioPWA.DAL.Evento
 
-@if (Mensaje != null && Resultado == "true")
+@if (validador != null && validador == true)
 {
     <div class="alert alert-success">
-        <strong>Éxito</strong> @Mensaje ;
+        <strong>La Operacion se ah Realizado con Exito</strong>  ;
 
 
     </div>
 
 }
-else if (Mensaje != null && Resultado == "false")
+else if (validador != null && validador == false)
 {
     <div class="alert alert-danger">
-        <strong>Error</strong> @Mensaje;
+        <strong>Ha Habido un Error al Cargar el Ticket</strong> ;
 
 
     </div>

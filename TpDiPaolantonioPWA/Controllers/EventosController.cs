@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace TpDiPaolantonioPWA.Controllers
 {
-    public class EventosController : Controller
+    public class EventosController : BaseController
     {
        private readonly DbmuseoMalbaContext _DbContext;
         private readonly IWebHostEnvironment _webHostEnvironment;

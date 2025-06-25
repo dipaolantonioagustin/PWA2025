@@ -31,6 +31,8 @@ public partial class DbmuseoMalbaContext : DbContext
 
     public virtual DbSet<TipoEvento> TipoEventos { get; set; }
 
+    //public virtual DbSet<Usuario> Usuarios { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     { }
 
@@ -162,7 +164,7 @@ public partial class DbmuseoMalbaContext : DbContext
 
         modelBuilder.Entity<Ticket>(entity =>
         {
-            entity.HasKey(e => e.Id); // ✅ Declarás que Id es la clave primaria
+            entity.HasKey(e => e.Id); 
             entity.ToTable("ticket");
 
             entity.Property(e => e.Id).HasColumnName("id");
@@ -173,6 +175,8 @@ public partial class DbmuseoMalbaContext : DbContext
                 .HasColumnName("id");
             entity.Property(e => e.IdEvento).HasColumnName("id_evento");
             entity.Property(e => e.ValorTotal).HasColumnName("valor_total");
+           // entity.Property(e => e.Id_usuario).HasColumnName("id_usuario");
+
 
             entity.HasOne(d => d.IdEventoNavigation).WithMany()
                 .HasForeignKey(d => d.IdEvento)
@@ -181,6 +185,7 @@ public partial class DbmuseoMalbaContext : DbContext
 
             entity.Ignore(e => e.TempId);
 
+            
         });
 
         modelBuilder.Entity<TipoEvento>(entity =>

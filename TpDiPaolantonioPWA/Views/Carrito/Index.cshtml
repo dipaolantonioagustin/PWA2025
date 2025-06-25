@@ -5,7 +5,27 @@
 @model _Tickets_Eventos
 
 @{
+    var validador = TempData["Validador"] as bool?; 
 }
+
+@if (validador != null && validador == true)
+{
+    <div class="alert alert-success">
+        <strong>La Operacion se ah Realizado con Exito</strong>  ;
+
+
+    </div>
+
+}
+else if (validador != null && validador == false)
+{
+    <div class="alert alert-danger">
+        <strong>Ha Habido un Error al Cargar el Ticket</strong> ;
+
+
+    </div>
+}
+
 
 <div class="container-fluid mb-5 pb-5 ">
     <div class="container-fluid py-0 my-0">
@@ -56,7 +76,7 @@
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td>Total:</td>
+                                <td>Total: $ @(Model.listaTickets?.Sum(x => x.ValorTotal) ?? 0)</td>
                                 <td></td>
                                 <td></td>
                         

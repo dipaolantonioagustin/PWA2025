@@ -44,7 +44,10 @@
                             <a class="nav-link text-dark fw-bold fs-3" asp-area="" asp-controller="Contacto" asp-action="Index">Contacto</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark fw-bold fs-3" asp-area="" asp-controller="Carrito" asp-action="DetalleCompra"> <i class="bi bi-cart-fill"></i></a>
+                            <a class="nav-link text-dark fw-bold fs-3" asp-area="" asp-controller="Carrito" asp-action="DetalleCompra"> <i class="bi bi-cart-fill"><span class="ms-1">@ViewBag.Contador</span></i></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark fw-bold fs-3" asp-area="" asp-controller="Tickets" asp-action="TicketsUsuario"> Mis Tikets </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark fw-bold fs-3" asp-area="" asp-controller="Loguin" asp-action="Index"> <i class="bi bi-person-circle"></i></a>

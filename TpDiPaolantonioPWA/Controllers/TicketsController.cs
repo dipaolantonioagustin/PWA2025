@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace TpDiPaolantonioPWA.Controllers
 {
-    public class TicketsController : Controller
+    public class TicketsController : BaseController
     {
         private readonly DbmuseoMalbaContext _DbContext;
         public TicketsController(DbmuseoMalbaContext _context)
@@ -34,6 +34,19 @@ namespace TpDiPaolantonioPWA.Controllers
         
         }
 
+        public IActionResult TicketsUsuario() 
+        {
+            _TicketsUsuario t = new _TicketsUsuario() {
+
+                listadoTickets = _DbContext.Tickets.Include(t => t.IdEventoNavigation).ToList(),
+                usuario = Helpers.sesionHelpers.GetObjectFromJson<Usuario>(HttpContext.Session, "Usuario")
+
+
+            };
+                   
+            return View(t);
+        
+        }
 
 
         private void limpiarTicketsSesion() 
@@ -72,14 +85,14 @@ namespace TpDiPaolantonioPWA.Controllers
                 _DbContext.SaveChanges();
 
                 TempData["Mensaje"] = "Se Agregaron los Tickets Correctamente";
-                TempData["verificador"] = "true";
+                TempData["validador"] = true;
 
                 limpiarTicketsSesion();
             }
             else
             {
                 TempData["Mensaje"] = "No Se Pudo Agregar el Ticket Correctamente";
-                TempData["verificador"] = "false";
+                TempData["validador"] = false;
 
             }
 
@@ -87,7 +100,7 @@ namespace TpDiPaolantonioPWA.Controllers
 
            
 
-            return RedirectToAction("Index","Carrito", lista);
+            return RedirectToAction("ConfirmarCompra","Carrito", lista);
         
         }
 

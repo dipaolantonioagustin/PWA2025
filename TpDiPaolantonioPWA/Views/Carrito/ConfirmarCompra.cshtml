@@ -5,7 +5,21 @@
 @model float
 
 @{
+
+    var validador = TempData["validador"] as bool?;
 }
+
+@if (validador != null && validador == true)
+{
+
+    <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+        ¡Compra realizada con éxito!
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+    </div>
+
+}
+
+
 
 <div class="container d-flex justify-content-center align-items-center" style="min-height:100hv;">
 
@@ -59,3 +73,12 @@
 
 
 </div>
+
+
+   
+    
+
+
+
+
+

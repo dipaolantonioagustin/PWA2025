@@ -6,7 +6,7 @@ using TpDiPaolantonioPWA.DAL;
 
 namespace TpDiPaolantonioPWA.Controllers
 {
-    public class MuestraPermanenteController : Controller
+    public class MuestraPermanenteController : BaseController
     {
         private readonly DbmuseoMalbaContext dbContext;
         private readonly IWebHostEnvironment _webHostEnvironment;
