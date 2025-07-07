@@ -46,17 +46,19 @@ namespace TpDiPaolantonioPWA.Controllers
 
             List<Ticket> listadoTickets = _DbContext.Tickets.Include(t => t.IdEventoNavigation).ToList();
 
+            var l = listadoTickets.OrderByDescending(t => t.Id).ToList();
+
             const int TamanioPagina = 5;
 
             pg = (pg < 1) ? 1: pg;
             
-            int tamanioListado = listadoTickets.Count;
+            int tamanioListado = l.Count;
 
             var pager = new Pager(tamanioListado, pg, TamanioPagina);
 
             int salto = (pg-1)* TamanioPagina;
 
-            var listaFinal = listadoTickets.Skip(salto).Take(pager.PaginaTamanio).ToList();
+            var listaFinal = l.Skip(salto).Take(pager.PaginaTamanio).ToList();
 
             ViewBag.Pager = pager;
 
